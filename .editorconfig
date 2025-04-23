@@ -1,0 +1,22 @@
+# top-most EditorConfig file
+root = true
+
+# Java files
+[*.java]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+# Java-specific formatting preferences
+# These properties are not standardized by EditorConfig, but supported by IDEs like IntelliJ IDEA
+ij_java_brace_style = end_of_line
+ij_java_method_brace_style = end_of_line
+ij_java_class_brace_style = end_of_line
+ij_java_other_brace_style = end_of_line
+ij_formatter_profile = Custom
+
+# Optional: prevent automatic wrapping
+ij_wrap_long_lines = false
