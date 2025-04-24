@@ -1,11 +1,6 @@
-package PCShop;
-
-
+package com.example.PCShopApp;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.ui.*;
-
-import flatlafLib.Consumer;
+//import flatlafLib.Consumer;
 
 
 /*
@@ -249,8 +244,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_BTBuildActionPerformed
 
     public static void main(String args[]) {
-        Consumer.setup();
-        //FlatDarkLaf.setup();
+        //Consumer.setup();
+        FlatDarkLaf.setup();
         //FlatLaf.registerCustomDefaultsSource("src.main.java.flatlafLib");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
