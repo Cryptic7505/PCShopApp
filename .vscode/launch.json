@@ -5,6 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         
+        
         {
             "type": "java",
             "name": "Current File",
@@ -16,7 +17,7 @@
             "name": "ConsumerInterface",
             "request": "launch",
             "mainClass": "ConsumerInterface",
-            "projectName": "PCShopApp_e78a44dc"
+            "projectName": "PCShopApp"
         }
     ]
 }
