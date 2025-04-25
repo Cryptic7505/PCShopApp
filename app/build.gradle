@@ -43,5 +43,5 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.example.PCShopApp.ConsumerInterface'
+    mainClass = 'com.org.example.PCShopApp.ConsumerInterface'
 }
