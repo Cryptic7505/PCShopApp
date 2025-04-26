@@ -22,6 +22,7 @@ dependencies {
     implementation 'com.formdev:flatlaf:3.6'
     implementation 'com.formdev:flatlaf-swingx:3.6'
     implementation 'com.formdev:flatlaf-extras:3.6'
+    implementation 'mysql:mysql-connector-java:8.0.33'
 }
 
 testing {
