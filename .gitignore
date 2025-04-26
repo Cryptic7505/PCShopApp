@@ -1,9 +1,0 @@
-/PCShop/nbproject/private/
-/PCShop/build/
-
-.fake
-# Ignore Gradle project-specific cache directory
-
-
-# Ignore Gradle build output directory
-build
