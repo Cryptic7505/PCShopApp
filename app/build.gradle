@@ -15,6 +15,20 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+tasks.named('processResources') {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    
+    from("src/main/resources") {
+        include "FlatDarkLaf.properties"
+    }
+}
 
 dependencies {
     // This dependency is used by the application.
