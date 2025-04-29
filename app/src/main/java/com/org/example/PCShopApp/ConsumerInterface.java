@@ -1,6 +1,7 @@
 package com.org.example.PCShopApp;
 
 import java.sql.Statement;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -22,11 +24,23 @@ import com.formdev.flatlaf.FlatLaf;
 public class ConsumerInterface extends javax.swing.JFrame {
     private double total;
     private Map<JComboBox<String>, Double> componentPrices = new HashMap<>();
+    private List<ComponentConfig> componentConfigs = new ArrayList<>();
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public ConsumerInterface() {
         initComponents();
         initializePriceTracking();
         populateComboBoxes();
+    }
+    private class ComponentConfig {
+        JComboBox<String> comboBox;
+        JTextPane pricePane;
+        int typeId;
+
+        public ComponentConfig(JComboBox<String> comboBox, JTextPane pricePane, int typeId) {
+            this.comboBox = comboBox;
+            this.pricePane = pricePane;
+            this.typeId = typeId;
+        }
     }
     private void populateComboBoxes() {
         populateComboBox(CBCPU, 2);        // CPU
@@ -60,6 +74,60 @@ public class ConsumerInterface extends javax.swing.JFrame {
         addPriceListener(CBCooler, 7); // Cooler type ID
         addPriceListener(CBCase, 8); // Case type ID
     }
+    private void initializeComponentConfigs() {
+        // Add all component configurations
+        componentConfigs.add(new ComponentConfig(CBCPU, TPCPUPrice, 2));       // CPU
+        componentConfigs.add(new ComponentConfig(CBMOBO, TPMOBOPrice, 1));     // Motherboard
+        componentConfigs.add(new ComponentConfig(CBGPU, TPGPUPrice, 3));       // GPU
+        componentConfigs.add(new ComponentConfig(CBRAM, TPRAMPrice, 4));       // RAM
+        componentConfigs.add(new ComponentConfig(CBStorage, TPStoragePrice, 5)); // Storage
+        componentConfigs.add(new ComponentConfig(CBPSU, TPPSUPrice, 6));       // PSU
+        componentConfigs.add(new ComponentConfig(CBCooler, TPCoolerPrice, 7)); // Cooler
+        componentConfigs.add(new ComponentConfig(CBCase, TPCasePrice, 8));     // Case
+
+        // Add listeners to all components
+        componentConfigs.forEach(config -> {
+            config.comboBox.addActionListener(e -> {
+                updateComponentPriceDisplay(config);
+                updateTotalDisplay();
+            });
+            config.pricePane.setContentType("text/html");
+        });
+    }
+    private void updateComponentPriceDisplay(ComponentConfig config) {
+        String selected = (String) config.comboBox.getSelectedItem();
+        double price = 0.0;
+        
+        if (selected != null && !"none".equals(selected)) {
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(
+                     "SELECT Price FROM partlist WHERE `Part Name` = ? AND Type = ?")) {
+                
+                stmt.setString(1, selected);
+                stmt.setInt(2, config.typeId);
+                ResultSet rs = stmt.executeQuery();
+                
+                if (rs.next()) {
+                    price = rs.getDouble("Price");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                    "Error loading price for " + selected,
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        // Format price with currency and update display
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        String formattedPrice = "<html><div style='text-align: center; font-size: 16pt;'>" +
+                               currencyFormat.format(price) + "</div></html>";
+        
+        config.pricePane.setText(formattedPrice);
+        config.pricePane.setBackground(new Color(240, 240, 240)); // Set background color
+    }
+    
     
     public class DatabaseConnection {
         private static final String URL = "jdbc:mysql://localhost:3306/mydb";
@@ -118,10 +186,19 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }
     private void updateTotalDisplay() {
         double total = componentPrices.values().stream()
-                .mapToDouble(Double::doubleValue)
+                .mapToDouble(config -> {
+                    try {
+                        String text = config.pricePane.getText()
+                                .replaceAll("[^\\d.]", "");
+                        return text.isEmpty() ? 0.0 : Double.parseDouble(text);
+                    } catch (NumberFormatException e) {
+                        return 0.0;
+                    }
+                })
                 .sum();
 
-        TAPartsTotal.setText(String.format("$%.2f", total));
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        TAPartsTotal.setText(currencyFormat.format(total));
     }
 
 
@@ -861,35 +938,35 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_BTBuildActionPerformed
 
     private void CBCPUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCPUActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBCPUActionPerformed
 
     private void CBMOBOActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMOBOActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBMOBOActionPerformed
 
     private void CBPSUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPSUActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBPSUActionPerformed
 
     private void CBRAMActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBRAMActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBRAMActionPerformed
 
     private void CBCoolerActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCoolerActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBCoolerActionPerformed
 
     private void CBCaseActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCaseActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBCaseActionPerformed
 
     private void CBGPUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBGPUActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBGPUActionPerformed
 
     private void CBStorageActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBStorageActionPerformed
-        // TODO add your handling code here:
+        initializeComponentConfigs();
     }//GEN-LAST:event_CBStorageActionPerformed
 
     @SuppressWarnings({"Convert2Lambda", "override"})
