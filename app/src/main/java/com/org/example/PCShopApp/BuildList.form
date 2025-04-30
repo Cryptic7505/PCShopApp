@@ -66,9 +66,9 @@
                               </Group>
                               <Component id="TFAdress" min="-2" pref="573" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="TFLastN" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="268" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel2" max="32767" attributes="0"/>
                               <Component id="jButton1" max="32767" attributes="0"/>
