@@ -4,6 +4,7 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 /**
