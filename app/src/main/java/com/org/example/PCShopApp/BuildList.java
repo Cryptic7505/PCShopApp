@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 /**
  *
  * @author JORICK
@@ -178,6 +181,11 @@ public class BuildList extends javax.swing.JFrame {
         TFTotal.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFTotal.setText("0");
         TFTotal.setBorder(null);
+        TFTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFTotalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -282,10 +290,16 @@ public class BuildList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFEmailActionPerformed
 
+    private void TFTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFTotalActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
 
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
