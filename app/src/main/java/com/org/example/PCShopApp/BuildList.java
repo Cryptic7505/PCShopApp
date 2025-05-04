@@ -5,6 +5,19 @@
 package com.org.example.PCShopApp;
 
 import com.formdev.flatlaf.FlatLaf;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 
 /**
@@ -12,20 +25,53 @@ import com.formdev.flatlaf.FlatDarkLaf;
  * @author JORICK
  */
 public class BuildList extends javax.swing.JFrame {
-
-    /**
-     * Creates new form BuildList
-     */
+    private List<Map<String, Object>> partsData;
     public BuildList() {
         initComponents();
-        
-        TBList.getColumnModel().getColumn(0).setPreferredWidth(005);
-        TBList.getColumnModel().getColumn(1).setPreferredWidth(150);
-        TBList.getColumnModel().getColumn(2).setPreferredWidth(300);
-        TBList.getColumnModel().getColumn(3).setPreferredWidth(50);
-        TBList.getColumnModel().getColumn(4).setPreferredWidth(50);
     }
-    
+    public void setBuildData(String fullName, String phone, String email,
+            String address, String city, String province,
+            List<Map<String, Object>> partsData, double total) {
+
+        this.partsData = partsData; // Store the data for confirmation
+
+        // Set customer info
+        TFFullN.setText(fullName);
+        TFPhone.setText(phone);
+        TFEmail.setText(email);
+        TFAdress.setText(address + ", " + city + ", " + province);
+
+        // Clear and populate table
+        DefaultTableModel model = (DefaultTableModel) TBList.getModel();
+        model.setRowCount(0);
+
+        for (Map<String, Object> part : partsData) {
+            model.addRow(new Object[]{
+                part.get("id"),
+                part.get("name"),
+                part.get("model"), // Now showing the model
+                part.get("type"),
+                String.format("₱%,.2f", part.get("price"))
+            });
+        }
+
+        // Set total
+        TFTotal.setText(String.format("₱%,.2f", total));
+    }
+
+    private String getTypeName(int typeId) {
+        switch (typeId) {
+            case 1: return "Motherboard";
+            case 2: return "CPU";
+            case 3: return "GPU";
+            case 4: return "RAM";
+            case 5: return "Storage";
+            case 6: return "PSU";
+            case 7: return "Cooler";
+            case 8: return "Case";
+            default: return "Unknown";
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +92,8 @@ public class BuildList extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TFTotal = new javax.swing.JTextField();
-        BTNConfirm = new javax.swing.JButton();
+        BTConfirm = new javax.swing.JButton();
+        BTReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,59 +103,11 @@ public class BuildList extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1158, 930));
 
+        TBList.setAutoCreateRowSorter(true);
         TBList.setBackground(new java.awt.Color(40, 53, 98));
         TBList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "", null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Part Name", "Model", "Type", "Price"
@@ -125,6 +124,7 @@ public class BuildList extends javax.swing.JFrame {
         TBList.setGridColor(new java.awt.Color(0, 0, 0));
         TBList.setMaximumSize(new java.awt.Dimension(1158, 930));
         TBList.setPreferredSize(new java.awt.Dimension(1000, 800));
+        TBList.setRowHeight(50);
         TBList.setSelectionBackground(new java.awt.Color(40, 53, 98));
         TBList.setShowGrid(false);
         TBList.setShowVerticalLines(true);
@@ -132,12 +132,18 @@ public class BuildList extends javax.swing.JFrame {
         jScrollPane1.setViewportView(TBList);
         if (TBList.getColumnModel().getColumnCount() > 0) {
             TBList.getColumnModel().getColumn(0).setResizable(false);
+            TBList.getColumnModel().getColumn(0).setPreferredWidth(1);
             TBList.getColumnModel().getColumn(1).setResizable(false);
+            TBList.getColumnModel().getColumn(1).setPreferredWidth(600);
             TBList.getColumnModel().getColumn(2).setResizable(false);
+            TBList.getColumnModel().getColumn(2).setPreferredWidth(40);
             TBList.getColumnModel().getColumn(3).setResizable(false);
+            TBList.getColumnModel().getColumn(3).setPreferredWidth(20);
             TBList.getColumnModel().getColumn(4).setResizable(false);
+            TBList.getColumnModel().getColumn(4).setPreferredWidth(30);
         }
 
+        TFFullN.setEditable(false);
         TFFullN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFFullN.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         TFFullN.setText("Full Name");
@@ -154,6 +160,7 @@ public class BuildList extends javax.swing.JFrame {
             }
         });
 
+        TFAdress.setEditable(false);
         TFAdress.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFAdress.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         TFAdress.setText("Full Address");
@@ -165,6 +172,7 @@ public class BuildList extends javax.swing.JFrame {
             }
         });
 
+        TFEmail.setEditable(false);
         TFEmail.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFEmail.setText("Email");
         TFEmail.setPreferredSize(new java.awt.Dimension(220, 40));
@@ -174,6 +182,7 @@ public class BuildList extends javax.swing.JFrame {
             }
         });
 
+        TFPhone.setEditable(false);
         TFPhone.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFPhone.setText("Phone No.");
         TFPhone.setPreferredSize(new java.awt.Dimension(230, 40));
@@ -183,11 +192,11 @@ public class BuildList extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel1.setText("Total:      ₱");
+        jLabel1.setText("Total:      $");
+        jLabel1.setFocusable(false);
 
+        TFTotal.setBackground(new java.awt.Color(30, 30, 30));
         TFTotal.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFTotal.setText("0");
         TFTotal.setBorder(null);
@@ -218,12 +227,11 @@ public class BuildList extends javax.swing.JFrame {
                 .addGap(6, 6, 6))
         );
 
-        BTNConfirm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BTNConfirm.setText("Confirm Order");
-        BTNConfirm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        BTNConfirm.addActionListener(new java.awt.event.ActionListener() {
+        BTConfirm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BTConfirm.setText("Confirm Order");
+        BTConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTNConfirmActionPerformed(evt);
+                BTConfirmActionPerformed(evt);
             }
         });
 
@@ -243,11 +251,16 @@ public class BuildList extends javax.swing.JFrame {
                                 .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(TFAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(99, 99, 99)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(BTReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(BTConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,10 +275,12 @@ public class BuildList extends javax.swing.JFrame {
                         .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(7, 7, 7))
-                    .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BTReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BTConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(7, 7, 7)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(80, 80, 80))
         );
@@ -292,9 +307,132 @@ public class BuildList extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFAdressActionPerformed
 
-    private void BTNConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNConfirmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BTNConfirmActionPerformed
+    private void BTConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTConfirmActionPerformed
+        String fullName = TFFullN.getText().trim();
+        String phone = TFPhone.getText().trim();
+        String email = TFEmail.getText().trim();
+        String address = TFAdress.getText().trim();
+
+        if (fullName.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Customer information is incomplete.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int customerId = -1;
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Check if customer exists
+            for (Map<String, Object> part : partsData) {
+                int partId = (int) part.get("id");
+
+                try (PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT Stock FROM partlist WHERE `Part ID` = ?")) {
+                    stmt.setInt(1, partId);
+                    ResultSet rs = stmt.executeQuery();
+
+                    if (rs.next() && rs.getInt("Stock") < 1) {
+                        JOptionPane.showMessageDialog(this,
+                                part.get("name") + " is now out of stock",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+            }
+            String checkSql = "SELECT `Customer ID` FROM customers WHERE `Full Name` = ? AND `PhoneNo` = ? AND `Email` = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, fullName);
+                checkStmt.setString(2, phone);
+                checkStmt.setString(3, email);
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next()) {
+                    customerId = rs.getInt("Customer ID");
+                } else {
+                    // Insert new customer
+                    String insertSql = "INSERT INTO customers (`Full Name`, `PhoneNo`, `Email`, `Address`, `City`, `Province`, `Note`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                        String[] addressParts = address.split(", ");
+                        String addr = addressParts.length > 0 ? addressParts[0] : "";
+                        String city = addressParts.length > 1 ? addressParts[1] : "";
+                        String province = addressParts.length > 2 ? addressParts[2] : "";
+
+                        insertStmt.setString(1, fullName);
+                        insertStmt.setString(2, phone);
+                        insertStmt.setString(3, email);
+                        insertStmt.setString(4, addr);
+                        insertStmt.setString(5, city);
+                        insertStmt.setString(6, province);
+                        insertStmt.setString(7, "");
+                        insertStmt.executeUpdate();
+
+                        try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                customerId = generatedKeys.getInt(1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Collect part IDs and calculate total
+            List<Integer> partIds = new ArrayList<>();
+            double total = 0.0;
+
+            for (Map<String, Object> part : partsData) {
+                int partId = (int) part.get("id");
+
+                try (PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT Stock FROM partlist WHERE `Part ID` = ?")) {
+
+                    stmt.setInt(1, partId);
+                    ResultSet rs = stmt.executeQuery();
+
+                    if (rs.next() && rs.getInt("Stock") < 1) {
+                        JOptionPane.showMessageDialog(this,
+                                part.get("name") + " is now out of stock",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+                partIds.add(partId);
+                total += (double) part.get("price");
+            }
+
+            // Insert order
+            String itemPurchased = partIds.stream().map(String::valueOf).collect(Collectors.joining(","));
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "INSERT INTO `orders` (`Customer ID`, `Date of Order`, `Revenue`, `Item Purchased`, `Queue Order`) VALUES (?, CURRENT_DATE(), ?, ?, 0)")) {
+                stmt.setInt(1, customerId);
+                stmt.setDouble(2, total);
+                stmt.setString(3, itemPurchased);
+                stmt.executeUpdate();
+            }
+
+            // Update stock
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE partlist SET `Stock` = `Stock` - 1 WHERE `Part ID` = ? AND `Stock` > 0")) {
+                for (int partId : partIds) {
+                    stmt.setInt(1, partId);
+                    stmt.addBatch();
+                }
+                int[] updateCounts = stmt.executeBatch();
+                for (int count : updateCounts) {
+                    if (count == 0) {
+                        JOptionPane.showMessageDialog(this, "A part is out of stock.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+
+            JOptionPane.showMessageDialog(this, "Order confirmed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } catch (SQLException | NullPointerException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error processing order: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BTConfirmActionPerformed
 
     private void TFEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmailActionPerformed
         // TODO add your handling code here:
@@ -331,28 +469,25 @@ public class BuildList extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuildList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuildList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuildList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BuildList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         
+        //</editor-fold>
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BuildList().setVisible(true);
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BTNConfirm;
+    private javax.swing.JButton BTConfirm;
+    private javax.swing.JButton BTReturn;
     private javax.swing.JTable TBList;
     private javax.swing.JTextField TFAdress;
     private javax.swing.JTextField TFEmail;

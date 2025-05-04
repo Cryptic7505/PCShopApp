@@ -61,11 +61,19 @@
                               <Component id="TFAdress" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="TFPhone" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="TFPhone" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="BTReturn" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jPanel2" max="32767" attributes="0"/>
-                              <Component id="BTNConfirm" max="32767" attributes="0"/>
+                              <Component id="BTConfirm" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -87,11 +95,14 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="BTNConfirm" max="32767" attributes="0"/>
+                      <Component id="TFAdress" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="BTReturn" max="32767" attributes="0"/>
+                              <Component id="BTConfirm" max="32767" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="TFAdress" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="533" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -114,64 +125,14 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="TBList">
               <Properties>
+                <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="62" green="35" red="28" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="50">
+                  <Table columnCount="5" rowCount="0">
                     <Column editable="false" title="ID" type="java.lang.Object"/>
-                    <Column editable="false" title="Part Name" type="java.lang.Object">
-                      <Data value=""/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                      <Data value="null"/>
-                    </Column>
+                    <Column editable="false" title="Part Name" type="java.lang.Object"/>
                     <Column editable="false" title="Model" type="java.lang.Object"/>
                     <Column editable="false" title="Type" type="java.lang.Object"/>
                     <Column editable="false" title="Price" type="java.lang.Object"/>
@@ -179,27 +140,27 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="1" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="600" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -215,6 +176,7 @@
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[1000, 800]"/>
                 </Property>
+                <Property name="rowHeight" type="int" value="50"/>
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="62" green="35" red="28" type="rgb"/>
                 </Property>
@@ -229,6 +191,7 @@
         </Container>
         <Component class="javax.swing.JTextField" name="TFFullN">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
             </Property>
@@ -246,6 +209,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TFAdress">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
             </Property>
@@ -262,6 +226,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TFEmail">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
             </Property>
@@ -276,6 +241,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TFPhone">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="1"/>
             </Property>
@@ -289,11 +255,6 @@
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -326,11 +287,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="15" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Total:      &#x20b1;"/>
+                <Property name="text" type="java.lang.String" value="Total:      $"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="TFTotal">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="1e" green="1e" red="1e" type="rgb"/>
+                </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="15" style="1"/>
                 </Property>
@@ -345,21 +310,18 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="BTNConfirm">
+        <Component class="javax.swing.JButton" name="BTConfirm">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Confirm Order"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                <BevelBorder/>
-              </Border>
-            </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNConfirmActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTConfirmActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="BTReturn">
         </Component>
       </SubComponents>
     </Container>

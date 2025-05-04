@@ -1,20 +1,16 @@
 package com.org.example.PCShopApp;
 
 import java.awt.Color;
-import java.sql.Statement;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.awt.color.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -35,6 +31,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
     private Map<String, Double> priceCache = new HashMap<>();
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public ConsumerInterface() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
         initializeComponentConfigs();
         populateComboBoxes();
@@ -62,20 +60,20 @@ public class ConsumerInterface extends javax.swing.JFrame {
         }
     }
     private void populateComboBoxes() {
-        populateComboBox(CBCPU, 2);        // CPU
-        populateComboBox(CBMOBO, 1);       // Motherboard
-        populateComboBox(CBGPU, 3);        // GPU
-        populateComboBox(CBRAM, 4);        // RAM
-        populateComboBox(CBStorage, 5);    // Storage
-        populateComboBox(CBPSU, 6);        // Power Supply
-        populateComboBox(CBCooler, 7);     // Cooling System
-        populateComboBox(CBCase, 8);       // Case
+        populateComboBox(CBCPU, 2, "CPU");
+        populateComboBox(CBMOBO, 1, "Motherboard");
+        populateComboBox(CBGPU, 3, "GPU");
+        populateComboBox(CBRAM, 4, "RAM");
+        populateComboBox(CBStorage, 5, "Storage");
+        populateComboBox(CBPSU, 6, "Power Supply");
+        populateComboBox(CBCooler, 7, "Cooler");
+        populateComboBox(CBCase, 8, "Case");
         // Add other ComboBoxes as needed
     }
     private void setupFormFields() {
         setupPlaceholder(TFFullName, "Full Name");
-        setupPlaceholder(TFPhoneNO, "#0000000");
-        setupPlaceholder(TFEmail, "Email Address");
+        setupPlaceholder(TFPhoneNO, "#");
+        setupPlaceholder(TFEmail, "Email");
         setupPlaceholder(TFAdress, "Address");
         setupPlaceholder(TFCity, "City");
         setupPlaceholder(TFProvince, "Province");
@@ -139,6 +137,12 @@ public class ConsumerInterface extends javax.swing.JFrame {
         // Add listeners to all components
         componentConfigs.forEach(config -> {
             config.comboBox.addActionListener(e -> {
+                String selected = (String) config.comboBox.getSelectedItem();
+                if (selected != null && selected.startsWith("Select ")) {
+                    config.comboBox.setForeground(Color.GRAY);
+                } else {
+                    config.comboBox.setForeground(Color.WHITE);
+                }
                 updateComponentPriceDisplay(config);
                 updateTotalDisplay();
             });
@@ -149,41 +153,41 @@ public class ConsumerInterface extends javax.swing.JFrame {
         String selected = (String) config.comboBox.getSelectedItem();
         double price = 0.0;
 
-        if (selected != null && !"none".equals(selected)) {
+        if (selected != null && !selected.startsWith("Select ") && !"none".equals(selected)) {
             price = priceCache.getOrDefault(selected, 0.0);
         }
-        // Update individual price display
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        String formattedPrice = currencyFormat.format(price);
 
-        // Update both the price pane and cache
-        config.priceField.setText(formattedPrice);
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        config.priceField.setText(currencyFormat.format(price));
         componentPrices.put(config.comboBox, price);
     }
     
-    
-    private void populateComboBox(JComboBox<String> comboBox, int typeId) {
+    private void populateComboBox(JComboBox<String> comboBox, int typeId, String partTypeName) {
         // Loads parts from database for a specific category
         // Populates both the combo box and price cache
         comboBox.removeAllItems();
-        comboBox.addItem("none");
+        comboBox.addItem("Select " + partTypeName); // First item as "Select (part type)"
+        comboBox.addItem("none"); // Second item as "none"
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "SELECT `Part Name`, Price FROM partlist WHERE Type = ?")) {
+                "SELECT `Part Name`,`Price` FROM partlist WHERE Type = ? AND Stock > 0 ORDER BY `Part Name`")) {
 
             stmt.setInt(1, typeId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String partName = rs.getString("Part Name");
-                double price = rs.getDouble("Price");
                 comboBox.addItem(partName);
-                priceCache.put(partName, price);  // Cache prices
+                priceCache.put(partName, rs.getDouble("Price")); // Cache prices
             }
         } catch (SQLException e) {
-            // Handle error
+            JOptionPane.showMessageDialog(this,
+                    "Error loading " + partTypeName + " list: " + e.getMessage(),
+                    "Database Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
         priceCache.put("none", 0.0);
+        priceCache.put("Select " + partTypeName, 0.0);
     }
     private void updateTotalDisplay() {
         // Calculates sum of all component prices
@@ -195,7 +199,18 @@ public class ConsumerInterface extends javax.swing.JFrame {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
         TAPartsTotal.setText(currencyFormat.format(total));
     }
-
+    private boolean validateComponentSelection(JComboBox<String> comboBox, String componentType) {
+        String selected = (String) comboBox.getSelectedItem();
+        if (selected == null || selected.startsWith("Select ")) {
+            JOptionPane.showMessageDialog(this,
+                    "Please select a " + componentType,
+                    "Selection Required",
+                    JOptionPane.WARNING_MESSAGE);
+            comboBox.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -704,7 +719,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,7 +738,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
                             .addComponent(BTBuild, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(TPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                .addGap(10, 10, 10))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {TFAdress, TFCity, TFEmail, TFFullName, TFPhoneNO, TFProvince});
@@ -731,14 +746,14 @@ public class ConsumerInterface extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TFFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFPhoneNO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TFCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -750,7 +765,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
                         .addComponent(BTBuild, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(TPOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180))
+                .addGap(12, 12, 12))
         );
 
         TPOptions.getAccessibleContext().setAccessibleName("Computer Parts");
@@ -804,166 +819,68 @@ public class ConsumerInterface extends javax.swing.JFrame {
         String cleanedPhone = phone.replaceAll("[^0-9]", "");
         if (cleanedPhone.length() < 7) {
             JOptionPane.showMessageDialog(this, "Invalid phone number", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+        // Collect parts data
+        List<Map<String, Object>> partsData = new ArrayList<>();
+        double total = 0.0;
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            for (ComponentConfig config : componentConfigs) {
+                String selected = (String) config.comboBox.getSelectedItem();
+                if (selected == null || selected.startsWith("Select ") || "none".equals(selected)) {
+                    continue;
+                }
+
+                // Get complete part information
+                try (PreparedStatement stmt = conn.prepareStatement(
+                        "SELECT p.`Part ID`, p.`Part Name`, p.Model, t.`Type` as Type, p.Price, p.Stock "
+                        + "FROM partlist p JOIN componenttype t ON p.Type = t.ID "
+                        + "WHERE p.`Part Name` = ?")) {
+
+                    stmt.setString(1, selected);
+                    ResultSet rs = stmt.executeQuery();
+
+                    if (rs.next()) {
+                        if (rs.getInt("Stock") < 1) {
+                            JOptionPane.showMessageDialog(this,
+                                    selected + " is out of stock",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        Map<String, Object> partInfo = new HashMap<>();
+                        partInfo.put("id", rs.getInt("Part ID"));
+                        partInfo.put("name", rs.getString("Part Name"));
+                        partInfo.put("model", rs.getString("Model"));
+                        partInfo.put("type", rs.getString("Type"));
+                        partInfo.put("price", rs.getDouble("Price"));
+                        partInfo.put("typeId", config.typeId); // Keep typeId for reference
+
+                        partsData.add(partInfo);
+                        total += rs.getDouble("Price");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Database error: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int customerId = -1;
-
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            // First check if customer exists
-            String checkSql = "SELECT `Customer ID` FROM customers WHERE "
-                    + "`Full Name` = ? AND `PhoneNo` = ? AND `Email` = ?";
-
-            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
-                checkStmt.setString(1, fullName);
-                checkStmt.setString(2, phone);
-                checkStmt.setString(3, email);
-
-                ResultSet rs = checkStmt.executeQuery();
-
-                if (rs.next()) {
-                    // Customer exists - get their ID
-                    customerId = rs.getInt("Customer ID");
-                    JOptionPane.showMessageDialog(this,
-                            "Using existing customer record",
-                            "Info",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    // Customer doesn't exist - insert new record
-                    String insertSql = "INSERT INTO customers (`Full Name`, `PhoneNo`, `Email`, `Address`, `City`, `Province`, `Note`) "
-                            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
-                        insertStmt.setString(1, fullName);
-                        insertStmt.setString(2, phone);
-                        insertStmt.setString(3, email);
-                        insertStmt.setString(4, address);
-                        insertStmt.setString(5, city);
-                        insertStmt.setString(6, province);
-                        insertStmt.setString(7, ""); // Note
-
-                        int affectedRows = insertStmt.executeUpdate();
-
-                        if (affectedRows == 0) {
-                            throw new SQLException("Creating customer failed.");
-                        }
-
-                        try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
-                            if (generatedKeys.next()) {
-                                customerId = generatedKeys.getInt(1);
-                                JOptionPane.showMessageDialog(this,
-                                        "New customer record created",
-                                        "Info",
-                                        JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                throw new SQLException("No customer ID obtained.");
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Rest of your order processing code...
-            // Collect selected parts
-            List<Integer> partIds = new ArrayList<>();
-            total = 0.0;  // Reset total
-
-            // Check each ComboBox
-            if (!addPart(CBCPU, 2, partIds)) {
-                return;
-            }
-            if (!addPart(CBMOBO, 1, partIds)) {
-                return;
-            }
-            if (!addPart(CBGPU, 3, partIds)) {
-                return;
-            }
-            if (!addPart(CBRAM, 4, partIds)) {
-                return;
-            }
-            if (!addPart(CBStorage, 5, partIds)) {
-                return;
-            }
-            if (!addPart(CBPSU, 6, partIds)) {
-                return;
-            }
-            if (!addPart(CBCooler, 7, partIds)) {
-                return;
-            }
-            if (!addPart(CBCase, 8, partIds)) {
-                return;
-            }
-
-            if (partIds.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No parts selected.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Insert order
-            String itemPurchased = partIds.stream().map(String::valueOf).collect(Collectors.joining(","));
-            try (PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO `orders` (`Customer ID`, `Date of Order`, `Revenue`, `Item Purchased`, `Queue Order`) "
-                    + "VALUES (?, CURRENT_DATE(), ?, ?, 0)")) {
-                stmt.setInt(1, customerId);
-                stmt.setDouble(2, total);
-                stmt.setString(3, itemPurchased);
-                stmt.executeUpdate();
-            }
-
-            // Update stock
-            try (PreparedStatement stmt = conn.prepareStatement(
-                    "UPDATE partlist SET `Stock` = `Stock` - 1 WHERE `Part ID` = ? AND `Stock` > 0")) {
-                for (int partId : partIds) {
-                    stmt.setInt(1, partId);
-                    stmt.addBatch();
-                }
-                int[] updateCounts = stmt.executeBatch();
-                for (int count : updateCounts) {
-                    if (count == 0) {
-                        JOptionPane.showMessageDialog(this, "A part is out of stock.", "Warning", JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-
-            JOptionPane.showMessageDialog(this, "Order finalized successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private boolean addPart(JComboBox<String> comboBox, int expectedType, List<Integer> partIds) {
-        String selected = (String) comboBox.getSelectedItem();
-        if ("none".equals(selected)) {
-            return true;
-        }
-
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "SELECT `Part ID`, `Price`, `Stock` FROM partlist WHERE `Part Name` = ? AND `Type` = ?")) {
-            stmt.setString(1, selected);
-            stmt.setInt(2, expectedType);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                int partId = rs.getInt("Part ID");
-                double price = rs.getDouble("Price");
-                int stock = rs.getInt("Stock");
-                if (stock <= 0) {
-                    JOptionPane.showMessageDialog(this, selected + " is out of stock.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                partIds.add(partId);
-                total += price;
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid part: " + selected, "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error checking part: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
+        // Open BuildList with complete data
+        BuildList buildList = new BuildList();
+        buildList.setBuildData(
+                fullName, phone, email, address, city, province,
+                partsData, total
+        );
+        buildList.setVisible(true);
+        Shopframe.setVisible(false);
     }//GEN-LAST:event_BTBuildActionPerformed
 
     private void CBCPUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCPUActionPerformed
@@ -999,11 +916,9 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_CBStorageActionPerformed
 
     @SuppressWarnings({"Convert2Lambda", "override"})
+    static ConsumerInterface Shopframe = new ConsumerInterface();
     public static void main(String args[]) {
-        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
-        FlatDarkLaf.setup();
-        ConsumerInterface frame = new ConsumerInterface();
-        frame.setVisible(true);
+        Shopframe.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
