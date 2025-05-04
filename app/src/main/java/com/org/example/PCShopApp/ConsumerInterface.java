@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.sql.Connection;
@@ -13,11 +14,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.awt.color.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -33,10 +38,11 @@ public class ConsumerInterface extends javax.swing.JFrame {
         initComponents();
         initializeComponentConfigs();
         populateComboBoxes();
+        setupFormFields();
 
         // Initialize all prices to 0
         componentConfigs.forEach(config -> {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
             config.priceField.setText(currencyFormat.format(0.00));
         });
 
@@ -65,6 +71,53 @@ public class ConsumerInterface extends javax.swing.JFrame {
         populateComboBox(CBCooler, 7);     // Cooling System
         populateComboBox(CBCase, 8);       // Case
         // Add other ComboBoxes as needed
+    }
+    private void setupFormFields() {
+        setupPlaceholder(TFFullName, "Full Name");
+        setupPlaceholder(TFPhoneNO, "#0000000");
+        setupPlaceholder(TFEmail, "Email Address");
+        setupPlaceholder(TFAdress, "Address");
+        setupPlaceholder(TFCity, "City");
+        setupPlaceholder(TFProvince, "Province");
+    }
+    private void setupPlaceholder(JTextField field, String placeholder) {
+        field.setForeground(Color.GRAY);
+        field.putClientProperty("placeholder", placeholder);  // Store placeholder text
+
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(Color.WHITE);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (field.getText().trim().isEmpty()) {
+                    field.setText(placeholder);
+                    field.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        // Handle direct typing without focusing first
+        field.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(Color.WHITE);
+                }
+            }
+        });
+    }
+    // Helper method to get actual field value
+    private String getFieldValue(JTextField field) {
+        String text = field.getText().trim();
+        String placeholder = (String) field.getClientProperty("placeholder");
+        return text.equals(placeholder) ? "" : text;
     }
     
     private void initializeComponentConfigs() {
@@ -100,7 +153,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
             price = priceCache.getOrDefault(selected, 0.0);
         }
         // Update individual price display
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
         String formattedPrice = currencyFormat.format(price);
 
         // Update both the price pane and cache
@@ -109,15 +162,6 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }
     
     
-    public class DatabaseConnection {
-        private static final String URL = "jdbc:mysql://localhost:3306/mydb";
-        private static final String USER = "root";
-        private static final String PASSWORD = "12345678";
-
-        public static Connection getConnection() throws SQLException {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
-        }
-    }
     private void populateComboBox(JComboBox<String> comboBox, int typeId) {
         // Loads parts from database for a specific category
         // Populates both the combo box and price cache
@@ -148,7 +192,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
                 .mapToDouble(config -> componentPrices.getOrDefault(config.comboBox, 0.0))
                 .sum();
 
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
         TAPartsTotal.setText(currencyFormat.format(total));
     }
 
@@ -258,7 +302,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanCPU.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFCPUPrice.setEditable(false);
-        TFCPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFCPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFCPUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFCPUPrice.setAutoscrolls(false);
         TFCPUPrice.setFocusable(false);
 
@@ -282,7 +327,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanMOBO.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFMOBOPrice.setEditable(false);
-        TFMOBOPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFMOBOPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFMOBOPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFMOBOPrice.setAutoscrolls(false);
         TFMOBOPrice.setFocusable(false);
 
@@ -306,7 +352,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanPSU.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFPSUPrice.setEditable(false);
-        TFPSUPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFPSUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFPSUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFPSUPrice.setAutoscrolls(false);
         TFPSUPrice.setFocusable(false);
 
@@ -330,7 +377,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanRAM.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFRAMPrice.setEditable(false);
-        TFRAMPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFRAMPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFRAMPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFRAMPrice.setAutoscrolls(false);
         TFRAMPrice.setFocusable(false);
 
@@ -354,7 +402,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanCooler.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFCoolerPrice.setEditable(false);
-        TFCoolerPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFCoolerPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFCoolerPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFCoolerPrice.setAutoscrolls(false);
         TFCoolerPrice.setFocusable(false);
 
@@ -396,7 +445,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanCase.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFCasePrice.setEditable(false);
-        TFCasePrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFCasePrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFCasePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFCasePrice.setAutoscrolls(false);
         TFCasePrice.setFocusable(false);
 
@@ -429,7 +479,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanGPU.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFGPUPrice.setEditable(false);
-        TFGPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFGPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFGPUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFGPUPrice.setAutoscrolls(false);
         TFGPUPrice.setFocusable(false);
 
@@ -462,7 +513,8 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanStorage.setPreferredSize(new java.awt.Dimension(265, 276));
 
         TFStoragePrice.setEditable(false);
-        TFStoragePrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        TFStoragePrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFStoragePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFStoragePrice.setAutoscrolls(false);
         TFStoragePrice.setFocusable(false);
 
@@ -592,7 +644,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         TFAdress.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFAdress.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        TFAdress.setText("Addres");
+        TFAdress.setText("Address");
         TFAdress.setToolTipText("");
         TFAdress.setPreferredSize(new java.awt.Dimension(230, 40));
         TFAdress.addActionListener(new java.awt.event.ActionListener() {
@@ -735,134 +787,150 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
     private void BTBuildActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBuildActionPerformed
         // Collect customer info
-        String fullName = TFFullName.getText().trim();
-        String phone = TFPhoneNO.getText().trim();
-        String email = TFEmail.getText().trim();
-        String address = TFAdress.getText().trim();
-        String city = TFCity.getText().trim();
-        String province = TFProvince.getText().trim();
+        String fullName = getFieldValue(TFFullName);
+        String phone = getFieldValue(TFPhoneNO);
+        String email = getFieldValue(TFEmail);
+        String address = getFieldValue(TFAdress);
+        String city = getFieldValue(TFCity);
+        String province = getFieldValue(TFProvince);
 
-        if (phone.length() > 20) { // Match your database column size
-            JOptionPane.showMessageDialog(this,
-                    "Phone number too long (max 20 characters)",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String cleanedPhone = phone.replaceAll("[^0-9]", "");
-        if (cleanedPhone.length() < 7) { // Minimum reasonable phone number length
-            JOptionPane.showMessageDialog(this,
-                    "Invalid phone number",
-                    "Error",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         // Validate inputs
         if (fullName.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty() || city.isEmpty() || province.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all customer fields.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Insert customer
+        // Phone number validation
+        String cleanedPhone = phone.replaceAll("[^0-9]", "");
+        if (cleanedPhone.length() < 7) {
+            JOptionPane.showMessageDialog(this, "Invalid phone number", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         int customerId = -1;
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO customers (`Full Name`, `PhoneNo`, `Email`, `Address`, `City`, `Province`, `Note`) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, fullName);
-            stmt.setString(2, phone);
-            stmt.setString(3, email);
-            stmt.setString(4, address);
-            stmt.setString(5, city);
-            stmt.setString(6, province);
-            stmt.setString(7, ""); // Note
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating customer failed.");
-            }
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    customerId = generatedKeys.getInt(1);
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // First check if customer exists
+            String checkSql = "SELECT `Customer ID` FROM customers WHERE "
+                    + "`Full Name` = ? AND `PhoneNo` = ? AND `Email` = ?";
+
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, fullName);
+                checkStmt.setString(2, phone);
+                checkStmt.setString(3, email);
+
+                ResultSet rs = checkStmt.executeQuery();
+
+                if (rs.next()) {
+                    // Customer exists - get their ID
+                    customerId = rs.getInt("Customer ID");
+                    JOptionPane.showMessageDialog(this,
+                            "Using existing customer record",
+                            "Info",
+                            JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    throw new SQLException("No customer ID obtained.");
+                    // Customer doesn't exist - insert new record
+                    String insertSql = "INSERT INTO customers (`Full Name`, `PhoneNo`, `Email`, `Address`, `City`, `Province`, `Note`) "
+                            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
+                        insertStmt.setString(1, fullName);
+                        insertStmt.setString(2, phone);
+                        insertStmt.setString(3, email);
+                        insertStmt.setString(4, address);
+                        insertStmt.setString(5, city);
+                        insertStmt.setString(6, province);
+                        insertStmt.setString(7, ""); // Note
+
+                        int affectedRows = insertStmt.executeUpdate();
+
+                        if (affectedRows == 0) {
+                            throw new SQLException("Creating customer failed.");
+                        }
+
+                        try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
+                            if (generatedKeys.next()) {
+                                customerId = generatedKeys.getInt(1);
+                                JOptionPane.showMessageDialog(this,
+                                        "New customer record created",
+                                        "Info",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                throw new SQLException("No customer ID obtained.");
+                            }
+                        }
+                    }
                 }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error saving customer: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
 
-        // Collect selected parts
-        List<Integer> partIds = new ArrayList<>();
-        total = 0.0;  // Reset total
+            // Rest of your order processing code...
+            // Collect selected parts
+            List<Integer> partIds = new ArrayList<>();
+            total = 0.0;  // Reset total
 
-        // Check each ComboBox
-        if (!addPart(CBCPU, 2, partIds)) {
-            return;
-        }
-        if (!addPart(CBMOBO, 1, partIds)) {
-            return;
-        }
-        if (!addPart(CBGPU, 3, partIds)) {
-            return;
-        }
-        if (!addPart(CBRAM, 4, partIds)) {
-            return;
-        }
-        if (!addPart(CBStorage, 5, partIds)) {
-            return;
-        }
-        if (!addPart(CBPSU, 6, partIds)) {
-            return;
-        }
-        if (!addPart(CBCooler, 7, partIds)) {
-            return;
-        }
-        if (!addPart(CBCase, 8, partIds)) {
-            return;
-        }
-
-        if (partIds.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No parts selected.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Insert order
-        String itemPurchased = partIds.stream().map(String::valueOf).collect(Collectors.joining(","));
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO `orders` (`Customer ID`, `Date of Order`, `Revenue`, `Item Purchased`, `Queue Order`) "
-                + "VALUES (?, CURRENT_DATE(), ?, ?, 0)")) {
-            stmt.setInt(1, customerId);
-            stmt.setDouble(2, total);
-            stmt.setString(3, itemPurchased);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error saving order: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Update stock
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE partlist SET `Stock` = `Stock` - 1 WHERE `Part ID` = ? AND `Stock` > 0")) {
-            for (int partId : partIds) {
-                stmt.setInt(1, partId);
-                stmt.addBatch();
+            // Check each ComboBox
+            if (!addPart(CBCPU, 2, partIds)) {
+                return;
             }
-            int[] updateCounts = stmt.executeBatch();
-            for (int count : updateCounts) {
-                if (count == 0) {
-                    JOptionPane.showMessageDialog(this, "A part is out of stock.", "Warning", JOptionPane.WARNING_MESSAGE);
+            if (!addPart(CBMOBO, 1, partIds)) {
+                return;
+            }
+            if (!addPart(CBGPU, 3, partIds)) {
+                return;
+            }
+            if (!addPart(CBRAM, 4, partIds)) {
+                return;
+            }
+            if (!addPart(CBStorage, 5, partIds)) {
+                return;
+            }
+            if (!addPart(CBPSU, 6, partIds)) {
+                return;
+            }
+            if (!addPart(CBCooler, 7, partIds)) {
+                return;
+            }
+            if (!addPart(CBCase, 8, partIds)) {
+                return;
+            }
+
+            if (partIds.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No parts selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Insert order
+            String itemPurchased = partIds.stream().map(String::valueOf).collect(Collectors.joining(","));
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "INSERT INTO `orders` (`Customer ID`, `Date of Order`, `Revenue`, `Item Purchased`, `Queue Order`) "
+                    + "VALUES (?, CURRENT_DATE(), ?, ?, 0)")) {
+                stmt.setInt(1, customerId);
+                stmt.setDouble(2, total);
+                stmt.setString(3, itemPurchased);
+                stmt.executeUpdate();
+            }
+
+            // Update stock
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE partlist SET `Stock` = `Stock` - 1 WHERE `Part ID` = ? AND `Stock` > 0")) {
+                for (int partId : partIds) {
+                    stmt.setInt(1, partId);
+                    stmt.addBatch();
+                }
+                int[] updateCounts = stmt.executeBatch();
+                for (int count : updateCounts) {
+                    if (count == 0) {
+                        JOptionPane.showMessageDialog(this, "A part is out of stock.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
+
+            JOptionPane.showMessageDialog(this, "Order finalized successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error updating stock: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        JOptionPane.showMessageDialog(this, "Order finalized successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private boolean addPart(JComboBox<String> comboBox, int expectedType, List<Integer> partIds) {
