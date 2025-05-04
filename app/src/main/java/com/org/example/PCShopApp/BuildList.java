@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+
 /**
  *
  * @author JORICK
@@ -16,11 +19,11 @@ public class BuildList extends javax.swing.JFrame {
     public BuildList() {
         initComponents();
         
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(005);
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(300);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(50);
+        TBList.getColumnModel().getColumn(0).setPreferredWidth(005);
+        TBList.getColumnModel().getColumn(1).setPreferredWidth(150);
+        TBList.getColumnModel().getColumn(2).setPreferredWidth(300);
+        TBList.getColumnModel().getColumn(3).setPreferredWidth(50);
+        TBList.getColumnModel().getColumn(4).setPreferredWidth(50);
     }
     
 
@@ -35,27 +38,26 @@ public class BuildList extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        TFFirstN = new javax.swing.JTextField();
+        TBList = new javax.swing.JTable();
+        TFFullN = new javax.swing.JTextField();
         TFAdress = new javax.swing.JTextField();
         TFEmail = new javax.swing.JTextField();
-        TFLastN = new javax.swing.JTextField();
+        TFPhone = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        TFTotal = new javax.swing.JTextField();
+        BTNConfirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1440, 1080));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(45, 48, 85));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1440, 1080));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1081, 680));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1158, 930));
 
-        jTable1.setBackground(new java.awt.Color(40, 53, 98));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TBList.setBackground(new java.awt.Color(40, 53, 98));
+        TBList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "", null, null, null},
                 {null, null, null, null, null},
@@ -113,33 +115,42 @@ public class BuildList extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setMaximumSize(new java.awt.Dimension(1158, 930));
-        jTable1.setPreferredSize(new java.awt.Dimension(1158, 930));
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        TBList.setGridColor(new java.awt.Color(0, 0, 0));
+        TBList.setMaximumSize(new java.awt.Dimension(1158, 930));
+        TBList.setPreferredSize(new java.awt.Dimension(1000, 800));
+        TBList.setSelectionBackground(new java.awt.Color(40, 53, 98));
+        TBList.setShowGrid(false);
+        TBList.setShowVerticalLines(true);
+        TBList.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(TBList);
+        if (TBList.getColumnModel().getColumnCount() > 0) {
+            TBList.getColumnModel().getColumn(0).setResizable(false);
+            TBList.getColumnModel().getColumn(1).setResizable(false);
+            TBList.getColumnModel().getColumn(2).setResizable(false);
+            TBList.getColumnModel().getColumn(3).setResizable(false);
+            TBList.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        TFFirstN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        TFFirstN.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        TFFirstN.setText("Full Name");
-        TFFirstN.setToolTipText("");
-        TFFirstN.setPreferredSize(new java.awt.Dimension(230, 40));
-        TFFirstN.addActionListener(new java.awt.event.ActionListener() {
+        TFFullN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        TFFullN.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        TFFullN.setText("Full Name");
+        TFFullN.setToolTipText("");
+        TFFullN.setPreferredSize(new java.awt.Dimension(220, 40));
+        TFFullN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TFFullNMouseClicked(evt);
+            }
+        });
+        TFFullN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFFirstNActionPerformed(evt);
+                TFFullNActionPerformed(evt);
             }
         });
 
@@ -156,21 +167,33 @@ public class BuildList extends javax.swing.JFrame {
 
         TFEmail.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFEmail.setText("Email");
-        TFEmail.setPreferredSize(new java.awt.Dimension(230, 40));
+        TFEmail.setPreferredSize(new java.awt.Dimension(220, 40));
+        TFEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFEmailActionPerformed(evt);
+            }
+        });
 
-        TFLastN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        TFLastN.setText("Phone No.");
-        TFLastN.setPreferredSize(new java.awt.Dimension(230, 40));
+        TFPhone.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        TFPhone.setText("Phone No.");
+        TFPhone.setPreferredSize(new java.awt.Dimension(230, 40));
+        TFPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFPhoneActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel1.setText("Total:      ₱");
 
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        TFTotal.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        TFTotal.setText("0");
+        TFTotal.setBorder(null);
+        TFTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                TFTotalActionPerformed(evt);
             }
         });
 
@@ -179,30 +202,28 @@ public class BuildList extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(TFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField2)
-                        .addGap(1, 1, 1))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                    .addComponent(TFTotal))
+                .addGap(6, 6, 6))
         );
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setText("Confirm Order");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTNConfirm.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BTNConfirm.setText("Confirm Order");
+        BTNConfirm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BTNConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTNConfirmActionPerformed(evt);
             }
         });
 
@@ -212,22 +233,22 @@ public class BuildList extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TFFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(TFLastN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(266, 266, 266)
+                                .addComponent(TFFullN, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TFAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,54 +257,68 @@ public class BuildList extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TFFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TFFullN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TFLastN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TFAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                        .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7))
+                    .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1442, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFFirstNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFirstNActionPerformed
+    private void TFFullNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFullNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFFirstNActionPerformed
+    }//GEN-LAST:event_TFFullNActionPerformed
 
     private void TFAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAdressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFAdressActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BTNConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNConfirmActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BTNConfirmActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void TFEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_TFEmailActionPerformed
+
+    private void TFTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFTotalActionPerformed
+
+    private void TFFullNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFFullNMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFFullNMouseClicked
+
+    private void TFPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFPhoneActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -306,26 +341,27 @@ public class BuildList extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(BuildList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new BuildList().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTNConfirm;
+    private javax.swing.JTable TBList;
     private javax.swing.JTextField TFAdress;
     private javax.swing.JTextField TFEmail;
-    private javax.swing.JTextField TFFirstN;
-    private javax.swing.JTextField TFLastN;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField TFFullN;
+    private javax.swing.JTextField TFPhone;
+    private javax.swing.JTextField TFTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
