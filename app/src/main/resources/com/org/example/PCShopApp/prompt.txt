@@ -1,200 +1,162 @@
+help me populate Comboboxes in my app with the data based on my database
+each combo box should hold a type of a computer part that fits its category
+ex: CBCPU will have [BrandName] that is equal to a CPU type based on the id in the data base
+and the selected parts will be stored on a table on the data base once a Finalize button is pressed and the nessary information is filled up
+the tables is the ID's are auto incrementing
+componenttype:
+ID    Type
+1	Motherboard
+2	CPU
+3	GPU
+4	RAM
+5	Storage
+6	Power Supply
+7	Cooling System
+8	Case
+9	Optical Drive
+10	Sound Card
+11	Network Card
+12	Monitor
+13	Keyboard
+14	Mouse
+15	Speakers
+16	Webcam
+17	Microphone
+18	External Storage
+19	Audio Interface
+20	UPS (Uninterruptible Power Supply)
+21	Fan
+22	Heat Sink
+23	Wireless Card
+24	TV Tuner Card
+customer:
+Customer ID | Full Name | PhoneNo | Email | Address | City | Province| Note
+order:
+Order ID | Customer ID | Date of Order | Revenue | Item Purchased | Queque Order
+partlist:
+Part ID | Part Name | Model | Type | Stock | Price | Restock? |Safety Stock
+1	ASUS Z390	Z390-A PRO	1	50	200	0	10
+2	Intel i7-9700K	i7-9700K	2	30	350	0	10
+3	NVIDIA RTX 3080	RTX 3080	3	0	700	1	10
+4	Corsair Vengeance 16GB	Vengeance LPX	4	100	80	0	10
+5	Samsung 970 EVO 1TB SSD	970 EVO	5	200	120	0	10
+6	Corsair RM850x	RM850x	6	50	130	0	10
+7	Cooler Master Hyper 212	Hyper 212	7	120	40	0	10
+8	NZXT H510	H510	8	75	70	0	10
+9	LG 24X DVD Writer	GH24NSD1	9	20	20	0	10
+10	Creative Sound Blaster Z	Sound Blaster Z	10	10	100	0	10
+11	TP-Link Archer T9E	Archer T9E	11	60	70	0	10
+12	Dell U2720Q	U2720Q	12	15	600	0	10
+13	Logitech G Pro	G Pro	13	150	100	0	10
+14	Logitech G502	G502	14	200	50	0	10
+15	Bose Companion 2	Companion 2	15	30	80	0	10
+16	Logitech C920	C920	16	200	50	0	10
+17	Blue Yeti	Yeti	17	50	130	0	10
+18	Seagate Backup Plus 2TB	Backup Plus	18	150	100	0	10
+19	Focusrite Scarlett 2i2	Scarlett 2i2	19	80	170	0	10
+20	APC Back-UPS	Back-UPS	20	25	150	0	10
+21	Noctua NF-A14	NF-A14	21	90	30	0	10
+22	Thermalright Silver Arrow	Silver Arrow	22	40	90	0	10
+23	Intel AC 9560	AC 9560	23	120	20	0	10
+24	Hauppauge WinTV	WinTV	24	10	80	0	10
+25	NVIDIA RTX 3060	RTX 3060	3	150	450	0	10
+26	NVIDIA RTX 3070	RTX 3070	3	120	700	0	10
+27	NVIDIA RTX 3080	RTX 3080	3	100	900	0	10
+28	AMD Radeon RX 6600 XT	RX 6600 XT	3	180	400	0	10
+29	NVIDIA RTX 3090	RTX 3090	3	50	1500	0	10
+30	NVIDIA GTX 1660 Ti	GTX 1660 Ti	3	250	250	0	10
+31	AMD Radeon RX 6800	RX 6800	3	80	700	0	10
+32	NVIDIA RTX 3050	RTX 3050	3	200	350	0	10
+33	AMD Radeon RX 6700 XT	RX 6700 XT	3	130	600	0	10
+34	NVIDIA GTX 1650 Super	GTX 1650 Super	3	200	200	0	10
+35	NVIDIA RTX 4070	RTX 4070	3	50	1200	0	10
+36	AMD Radeon RX 6900 XT	RX 6900 XT	3	40	1100	0	10
+37	NVIDIA RTX 4080	RTX 4080	3	30	1500	0	10
+38	NVIDIA GTX 1050 Ti	GTX 1050 Ti	3	220	150	0	10
+39	NVIDIA RTX 4070 Ti	RTX 4070 Ti	3	25	1300	0	10
+40	AMD Radeon RX 5700 XT	RX 5700 XT	3	180	400	0	10
+41	NVIDIA RTX 2060	RTX 2060	3	200	350	0	10
+42	NVIDIA GTX 1650	GTX 1650	3	250	180	0	10
+43	AMD Radeon RX 5600 XT	RX 5600 XT	3	160	300	0	10
+44	NVIDIA RTX 2080 Ti	RTX 2080 Ti	3	30	1200	0	10
+45	AMD Radeon RX 6500 XT	RX 6500 XT	3	220	250	0	10
+46	NVIDIA RTX 3060 Ti	RTX 3060 Ti	3	100	600	0	10
+47	NVIDIA RTX 2070 Super	RTX 2070 Super	3	50	800	0	10
+48	AMD Radeon RX 570	RX 570	3	180	180	0	10
+49	NVIDIA RTX 3090 Ti	RTX 3090 Ti	3	20	2000	0	10
+50	AMD Radeon RX Vega 64	RX Vega 64	3	40	600	0	10
+51	NVIDIA GTX 1070 Ti	GTX 1070 Ti	3	60	500	0	10
+52	NVIDIA RTX 2080	RTX 2080	3	80	900	0	10
+53	NVIDIA RTX 3060 12GB	RTX 3060 12GB	3	150	500	0	10
+54	NVIDIA GTX 1080 Ti	GTX 1080 Ti	3	70	750	0	10
+55	MSI B450 TOMAHAWK	B450 TOMAHAWK	1	150	120	1	10
+56	Gigabyte Z490 AORUS	Z490 AORUS	1	100	220	0	10
+57	ASRock X570 Steel Legend	X570 Steel Legend	1	120	250	1	10
+58	ASUS ROG Strix Z590-E	Z590-E	1	80	300	0	10
+59	MSI MAG B550 TOMAHAWK	B550 TOMAHAWK	1	90	180	1	10
+60	Gigabyte Z590 AORUS	Z590 AORUS	1	110	260	0	10
+61	ASRock Z490 Taichi	Z490 Taichi	1	95	280	1	10
+62	MSI MEG Z490 GODLIKE	Z490 GODLIKE	1	30	450	1	10
+63	ASUS TUF Gaming B550-PLUS	B550-PLUS	1	100	160	0	10
+64	Gigabyte X570 AORUS ELITE	X570 AORUS ELITE	1	75	230	1	10
+65	ASRock B550M Steel Legend	B550M Steel Legend	1	110	140	0	10
+66	MSI MPG Z490 GAMING EDGE	Z490 GAMING EDGE	1	50	250	1	10
+67	ASUS Prime Z490-A	Z490-A	1	120	230	0	10
+68	Gigabyte B550M DS3H	B550M DS3H	1	150	110	1	10
+69	ASRock Z390 Phantom Gaming	Z390 Phantom Gaming	1	80	200	0	10
+70	MSI B450 GAMING PRO	B450 GAMING PRO	1	130	120	1	10
+71	ASUS Z490-PRO	Z490-PRO	1	70	220	0	10
+72	Gigabyte Z370 AORUS	Z370 AORUS	1	95	180	1	10
+73	ASRock B365M PRO4	B365M PRO4	1	160	100	0	10
+74	MSI H310M PRO	H310M PRO	1	200	85	1	10
+75	ASUS TUF Z590-PLUS	Z590-PLUS	1	65	250	0	10
+76	Gigabyte Z590 AORUS MASTER	Z590 AORUS MASTER	1	40	380	1	10
+77	ASRock Z590 Steel Legend	Z590 Steel Legend	1	90	300	0	10
+78	MSI MPG Z490 GAMING PLUS	Z490 GAMING PLUS	1	100	190	1	10
+79	ASUS ROG Strix B550-F	B550-F	1	75	220	0	10
+80	Gigabyte X470 AORUS	X470 AORUS	1	85	180	1	10
+81	ASRock B550M Pro4	B550M Pro4	1	130	160	0	10
+82	MSI Z490-A PRO	Z490-A PRO	1	120	210	1	10
+83	Intel Core i5-11600K	i5-11600K	2	180	250	0	10
+84	Intel Core i7-11700K	i7-11700K	2	160	350	1	10
+85	Intel Core i9-11900K	i9-11900K	2	90	450	0	10
+86	AMD Ryzen 5 5600X	5600X	2	200	300	1	10
+87	AMD Ryzen 7 5800X	5800X	2	150	450	0	10
+88	AMD Ryzen 9 5900X	5900X	2	80	750	1	10
+89	Intel Core i3-10100F	i3-10100F	2	300	100	0	10
+90	Intel Core i5-10400F	i5-10400F	2	250	150	1	10
+91	AMD Ryzen 3 3100	3100	2	300	120	0	10
+92	Intel Core i7-10700K	i7-10700K	2	130	400	1	10
+93	Intel Core i5-10600K	i5-10600K	2	180	260	0	10
+94	AMD Ryzen 5 3600	3600	2	220	200	1	10
+95	AMD Ryzen 7 3700X	3700X	2	170	320	0	10
+96	Intel Core i9-10900K	i9-10900K	2	60	550	1	10
+97	Intel Core i5-9600K	i5-9600K	2	150	250	0	10
+98	AMD Ryzen 9 3950X	3950X	2	50	750	1	10
+99	Intel Core i7-9700K	i7-9700K	2	140	350	0	10
+100	AMD Ryzen 5 3400G	3400G	2	200	190	1	10
+101	Intel Core i9-10980XE	i9-10980XE	2	40	1000	1	10
+102	AMD Ryzen 5 5600G	5600G	2	90	270	0	10
+103	Intel Core i5-12400F	i5-12400F	2	220	300	1	10
+104	AMD Ryzen 9 7950X	7950X	2	30	950	0	10
+105	Intel Core i7-12700K	i7-12700K	2	100	500	1	10
+106	AMD Ryzen 5 5800G	5800G	2	50	400	0	10
+107	Intel Core i5-13600K	i5-13600K	2	150	450	1	10
+108	AMD Ryzen 7 7700X	7700X	2	90	600	0	10
+109	Intel Core i9-13900K	i9-13900K	2	20	750	1	10
+110	AMD Ryzen 5 7600X	7600X	2	120	350	0	10
+111	Intel Core i7-13700K	i7-13700K	2	80	600	1	10
+the whole code
 package com.org.example.PCShopApp;
 
-import java.awt.Color;
-import java.sql.Statement;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.color.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.sql.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
-
 public class ConsumerInterface extends javax.swing.JFrame {
-    private double total;
-    private Map<JComboBox<String>, Double> componentPrices = new HashMap<>();
-    private List<ComponentConfig> componentConfigs = new ArrayList<>();
-    private Map<String, Double> priceCache = new HashMap<>();
-    @SuppressWarnings("OverridableMethodCallInConstructor")
-    public ConsumerInterface() {
-        initComponents();
-        initializeComponentConfigs();
-        populateComboBoxes();
-        setupFormFields();
-
-        // Initialize all prices to 0
-        componentConfigs.forEach(config -> {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-            config.priceField.setText(currencyFormat.format(0.00));
-        });
-
-        // Set initial total
-        updateTotalDisplay();
-    }
-    private class ComponentConfig {
-
-        public JComboBox<String> comboBox;
-        public JTextField priceField;
-        public int typeId;
-
-        public ComponentConfig(JComboBox<String> comboBox,JTextField priceField,int typeId) {
-            this.comboBox = comboBox;
-            this.priceField = priceField;
-            this.typeId = typeId;
-        }
-    }
-    private void populateComboBoxes() {
-        populateComboBox(CBCPU, 2);        // CPU
-        populateComboBox(CBMOBO, 1);       // Motherboard
-        populateComboBox(CBGPU, 3);        // GPU
-        populateComboBox(CBRAM, 4);        // RAM
-        populateComboBox(CBStorage, 5);    // Storage
-        populateComboBox(CBPSU, 6);        // Power Supply
-        populateComboBox(CBCooler, 7);     // Cooling System
-        populateComboBox(CBCase, 8);       // Case
-        // Add other ComboBoxes as needed
-    }
-    private void setupFormFields() {
-        setupPlaceholder(TFFullName, "Full Name");
-        setupPlaceholder(TFPhoneNO, "#0000000");
-        setupPlaceholder(TFEmail, "Email Address");
-        setupPlaceholder(TFAdress, "Address");
-        setupPlaceholder(TFCity, "City");
-        setupPlaceholder(TFProvince, "Province");
-    }
-    private void setupPlaceholder(JTextField field, String placeholder) {
-        field.setForeground(Color.GRAY);
-        field.putClientProperty("placeholder", placeholder);  // Store placeholder text
-
-        field.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (field.getText().equals(placeholder)) {
-                    field.setText("");
-                    field.setForeground(Color.WHITE);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (field.getText().trim().isEmpty()) {
-                    field.setText(placeholder);
-                    field.setForeground(Color.GRAY);
-                }
-            }
-        });
-
-        // Handle direct typing without focusing first
-        field.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (field.getText().equals(placeholder)) {
-                    field.setText("");
-                    field.setForeground(Color.WHITE);
-                }
-            }
-        });
-    }
-    // Helper method to get actual field value
-    private String getFieldValue(JTextField field) {
-        String text = field.getText().trim();
-        String placeholder = (String) field.getClientProperty("placeholder");
-        return text.equals(placeholder) ? "" : text;
-    }
     
-    private void initializeComponentConfigs() {
-        // Creates associations between:
-        // - Component selection combo boxes
-        // - Price display text panes
-        // - Part type IDs
-
-        // Add all component configurations
-        componentConfigs.add(new ComponentConfig(CBCPU, TFCPUPrice, 2));       // CPU
-        componentConfigs.add(new ComponentConfig(CBMOBO, TFMOBOPrice, 1));     // Motherboard
-        componentConfigs.add(new ComponentConfig(CBGPU, TFGPUPrice, 3));       // GPU
-        componentConfigs.add(new ComponentConfig(CBRAM, TFRAMPrice, 4));       // RAM
-        componentConfigs.add(new ComponentConfig(CBStorage, TFStoragePrice, 5)); // Storage
-        componentConfigs.add(new ComponentConfig(CBPSU, TFPSUPrice, 6));       // PSU
-        componentConfigs.add(new ComponentConfig(CBCooler, TFCoolerPrice, 7)); // Cooler
-        componentConfigs.add(new ComponentConfig(CBCase, TFCasePrice, 8));     // Case
-
-        // Add listeners to all components
-        componentConfigs.forEach(config -> {
-            config.comboBox.addActionListener(e -> {
-                updateComponentPriceDisplay(config);
-                updateTotalDisplay();
-            });
-        });
-    }
-    private void updateComponentPriceDisplay(ComponentConfig config) {
-        // Called when combo box selection changes
-        String selected = (String) config.comboBox.getSelectedItem();
-        double price = 0.0;
-
-        if (selected != null && !"none".equals(selected)) {
-            price = priceCache.getOrDefault(selected, 0.0);
-        }
-        // Update individual price display
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        String formattedPrice = currencyFormat.format(price);
-
-        // Update both the price pane and cache
-        config.priceField.setText(formattedPrice);
-        componentPrices.put(config.comboBox, price);
-    }
-    
-    
-    private void populateComboBox(JComboBox<String> comboBox, int typeId) {
-        // Loads parts from database for a specific category
-        // Populates both the combo box and price cache
-        comboBox.removeAllItems();
-        comboBox.addItem("none");
-
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "SELECT `Part Name`, Price FROM partlist WHERE Type = ?")) {
-
-            stmt.setInt(1, typeId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String partName = rs.getString("Part Name");
-                double price = rs.getDouble("Price");
-                comboBox.addItem(partName);
-                priceCache.put(partName, price);  // Cache prices
-            }
-        } catch (SQLException e) {
-            // Handle error
-        }
-        priceCache.put("none", 0.0);
-    }
-    private void updateTotalDisplay() {
-        // Calculates sum of all component prices
-        // Calculate total from cached prices instead of parsing text
-        double total = componentConfigs.stream()
-                .mapToDouble(config -> componentPrices.getOrDefault(config.comboBox, 0.0))
-                .sum();
-
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
-        TAPartsTotal.setText(currencyFormat.format(total));
-    }
 
 
     /**
@@ -214,25 +176,33 @@ public class ConsumerInterface extends javax.swing.JFrame {
         CBPSU = new javax.swing.JComboBox<>();
         CBRAM = new javax.swing.JComboBox<>();
         PanCPU = new javax.swing.JPanel();
-        TFCPUPrice = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TPCPUPrice = new javax.swing.JTextPane();
         PanMOBO = new javax.swing.JPanel();
-        TFMOBOPrice = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TPMOBOPrice = new javax.swing.JTextPane();
         PanPSU = new javax.swing.JPanel();
-        TFPSUPrice = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TPPSUPrice = new javax.swing.JTextPane();
         PanRAM = new javax.swing.JPanel();
-        TFRAMPrice = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TPRAMPrice = new javax.swing.JTextPane();
         PanCooler = new javax.swing.JPanel();
-        TFCoolerPrice = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TPCoolerPrice = new javax.swing.JTextPane();
         CBCooler = new javax.swing.JComboBox<>();
         CBCase = new javax.swing.JComboBox<>();
         PanCase = new javax.swing.JPanel();
-        TFCasePrice = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TPCasePrice = new javax.swing.JTextPane();
         CBGPU = new javax.swing.JComboBox<>();
         PanGPU = new javax.swing.JPanel();
-        TFGPUPrice = new javax.swing.JTextField();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        TPGPUPrice = new javax.swing.JTextPane();
         CBStorage = new javax.swing.JComboBox<>();
         PanStorage = new javax.swing.JPanel();
-        TFStoragePrice = new javax.swing.JTextField();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        TPStoragePrice = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         TFFullName = new javax.swing.JTextField();
         TFPhoneNO = new javax.swing.JTextField();
@@ -301,127 +271,115 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         PanCPU.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFCPUPrice.setEditable(false);
-        TFCPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFCPUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFCPUPrice.setAutoscrolls(false);
-        TFCPUPrice.setFocusable(false);
+        jScrollPane2.setViewportView(TPCPUPrice);
 
         javax.swing.GroupLayout PanCPULayout = new javax.swing.GroupLayout(PanCPU);
         PanCPU.setLayout(PanCPULayout);
         PanCPULayout.setHorizontalGroup(
             PanCPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCPULayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFCPUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         PanCPULayout.setVerticalGroup(
             PanCPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCPULayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFCPUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
         PanMOBO.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFMOBOPrice.setEditable(false);
-        TFMOBOPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFMOBOPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFMOBOPrice.setAutoscrolls(false);
-        TFMOBOPrice.setFocusable(false);
+        jScrollPane3.setViewportView(TPMOBOPrice);
 
         javax.swing.GroupLayout PanMOBOLayout = new javax.swing.GroupLayout(PanMOBO);
         PanMOBO.setLayout(PanMOBOLayout);
         PanMOBOLayout.setHorizontalGroup(
             PanMOBOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMOBOLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFMOBOPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         PanMOBOLayout.setVerticalGroup(
             PanMOBOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMOBOLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFMOBOPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
         PanPSU.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFPSUPrice.setEditable(false);
-        TFPSUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFPSUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFPSUPrice.setAutoscrolls(false);
-        TFPSUPrice.setFocusable(false);
+        jScrollPane4.setViewportView(TPPSUPrice);
 
         javax.swing.GroupLayout PanPSULayout = new javax.swing.GroupLayout(PanPSU);
         PanPSU.setLayout(PanPSULayout);
         PanPSULayout.setHorizontalGroup(
             PanPSULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanPSULayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFPSUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         PanPSULayout.setVerticalGroup(
             PanPSULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanPSULayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFPSUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
 
         PanRAM.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFRAMPrice.setEditable(false);
-        TFRAMPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFRAMPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFRAMPrice.setAutoscrolls(false);
-        TFRAMPrice.setFocusable(false);
+        jScrollPane5.setViewportView(TPRAMPrice);
 
         javax.swing.GroupLayout PanRAMLayout = new javax.swing.GroupLayout(PanRAM);
         PanRAM.setLayout(PanRAMLayout);
         PanRAMLayout.setHorizontalGroup(
             PanRAMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanRAMLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFRAMPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 265, Short.MAX_VALUE)
+            .addGroup(PanRAMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanRAMLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         PanRAMLayout.setVerticalGroup(
             PanRAMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanRAMLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFRAMPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(PanRAMLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanRAMLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         PanCooler.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFCoolerPrice.setEditable(false);
-        TFCoolerPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFCoolerPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFCoolerPrice.setAutoscrolls(false);
-        TFCoolerPrice.setFocusable(false);
+        jScrollPane6.setViewportView(TPCoolerPrice);
 
         javax.swing.GroupLayout PanCoolerLayout = new javax.swing.GroupLayout(PanCooler);
         PanCooler.setLayout(PanCoolerLayout);
         PanCoolerLayout.setHorizontalGroup(
             PanCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCoolerLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFCoolerPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 265, Short.MAX_VALUE)
+            .addGroup(PanCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanCoolerLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         PanCoolerLayout.setVerticalGroup(
             PanCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCoolerLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFCoolerPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(PanCoolerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanCoolerLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         CBCooler.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -444,27 +402,27 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         PanCase.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFCasePrice.setEditable(false);
-        TFCasePrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFCasePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFCasePrice.setAutoscrolls(false);
-        TFCasePrice.setFocusable(false);
+        jScrollPane7.setViewportView(TPCasePrice);
 
         javax.swing.GroupLayout PanCaseLayout = new javax.swing.GroupLayout(PanCase);
         PanCase.setLayout(PanCaseLayout);
         PanCaseLayout.setHorizontalGroup(
             PanCaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCaseLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFCasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 265, Short.MAX_VALUE)
+            .addGroup(PanCaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanCaseLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         PanCaseLayout.setVerticalGroup(
             PanCaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanCaseLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFCasePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(PanCaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanCaseLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         CBGPU.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -478,27 +436,27 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         PanGPU.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFGPUPrice.setEditable(false);
-        TFGPUPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFGPUPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFGPUPrice.setAutoscrolls(false);
-        TFGPUPrice.setFocusable(false);
+        jScrollPane8.setViewportView(TPGPUPrice);
 
         javax.swing.GroupLayout PanGPULayout = new javax.swing.GroupLayout(PanGPU);
         PanGPU.setLayout(PanGPULayout);
         PanGPULayout.setHorizontalGroup(
             PanGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanGPULayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFGPUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 265, Short.MAX_VALUE)
+            .addGroup(PanGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanGPULayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         PanGPULayout.setVerticalGroup(
             PanGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanGPULayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFGPUPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(PanGPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanGPULayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         CBStorage.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -512,27 +470,27 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         PanStorage.setPreferredSize(new java.awt.Dimension(265, 276));
 
-        TFStoragePrice.setEditable(false);
-        TFStoragePrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        TFStoragePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        TFStoragePrice.setAutoscrolls(false);
-        TFStoragePrice.setFocusable(false);
+        jScrollPane9.setViewportView(TPStoragePrice);
 
         javax.swing.GroupLayout PanStorageLayout = new javax.swing.GroupLayout(PanStorage);
         PanStorage.setLayout(PanStorageLayout);
         PanStorageLayout.setHorizontalGroup(
             PanStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanStorageLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addComponent(TFStoragePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 265, Short.MAX_VALUE)
+            .addGroup(PanStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanStorageLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         PanStorageLayout.setVerticalGroup(
             PanStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanStorageLayout.createSequentialGroup()
-                .addContainerGap(211, Short.MAX_VALUE)
-                .addComponent(TFStoragePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGap(0, 276, Short.MAX_VALUE)
+            .addGroup(PanStorageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanStorageLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -644,7 +602,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
 
         TFAdress.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFAdress.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        TFAdress.setText("Address");
+        TFAdress.setText("Addres");
         TFAdress.setToolTipText("");
         TFAdress.setPreferredSize(new java.awt.Dimension(230, 40));
         TFAdress.addActionListener(new java.awt.event.ActionListener() {
@@ -786,216 +744,40 @@ public class ConsumerInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_TFProvinceActionPerformed
 
     private void BTBuildActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBuildActionPerformed
-        // Collect customer info
-        String fullName = getFieldValue(TFFullName);
-        String phone = getFieldValue(TFPhoneNO);
-        String email = getFieldValue(TFEmail);
-        String address = getFieldValue(TFAdress);
-        String city = getFieldValue(TFCity);
-        String province = getFieldValue(TFProvince);
-
-        // Validate inputs
-        if (fullName.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty() || city.isEmpty() || province.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all customer fields.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        // Phone number validation
-        String cleanedPhone = phone.replaceAll("[^0-9]", "");
-        if (cleanedPhone.length() < 7) {
-            JOptionPane.showMessageDialog(this, "Invalid phone number", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int customerId = -1;
-
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            // First check if customer exists
-            String checkSql = "SELECT `Customer ID` FROM customers WHERE "
-                    + "`Full Name` = ? AND `PhoneNo` = ? AND `Email` = ?";
-
-            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
-                checkStmt.setString(1, fullName);
-                checkStmt.setString(2, phone);
-                checkStmt.setString(3, email);
-
-                ResultSet rs = checkStmt.executeQuery();
-
-                if (rs.next()) {
-                    // Customer exists - get their ID
-                    customerId = rs.getInt("Customer ID");
-                    JOptionPane.showMessageDialog(this,
-                            "Using existing customer record",
-                            "Info",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    // Customer doesn't exist - insert new record
-                    String insertSql = "INSERT INTO customers (`Full Name`, `PhoneNo`, `Email`, `Address`, `City`, `Province`, `Note`) "
-                            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS)) {
-                        insertStmt.setString(1, fullName);
-                        insertStmt.setString(2, phone);
-                        insertStmt.setString(3, email);
-                        insertStmt.setString(4, address);
-                        insertStmt.setString(5, city);
-                        insertStmt.setString(6, province);
-                        insertStmt.setString(7, ""); // Note
-
-                        int affectedRows = insertStmt.executeUpdate();
-
-                        if (affectedRows == 0) {
-                            throw new SQLException("Creating customer failed.");
-                        }
-
-                        try (ResultSet generatedKeys = insertStmt.getGeneratedKeys()) {
-                            if (generatedKeys.next()) {
-                                customerId = generatedKeys.getInt(1);
-                                JOptionPane.showMessageDialog(this,
-                                        "New customer record created",
-                                        "Info",
-                                        JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                throw new SQLException("No customer ID obtained.");
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Rest of your order processing code...
-            // Collect selected parts
-            List<Integer> partIds = new ArrayList<>();
-            total = 0.0;  // Reset total
-
-            // Check each ComboBox
-            if (!addPart(CBCPU, 2, partIds)) {
-                return;
-            }
-            if (!addPart(CBMOBO, 1, partIds)) {
-                return;
-            }
-            if (!addPart(CBGPU, 3, partIds)) {
-                return;
-            }
-            if (!addPart(CBRAM, 4, partIds)) {
-                return;
-            }
-            if (!addPart(CBStorage, 5, partIds)) {
-                return;
-            }
-            if (!addPart(CBPSU, 6, partIds)) {
-                return;
-            }
-            if (!addPart(CBCooler, 7, partIds)) {
-                return;
-            }
-            if (!addPart(CBCase, 8, partIds)) {
-                return;
-            }
-
-            if (partIds.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "No parts selected.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Insert order
-            String itemPurchased = partIds.stream().map(String::valueOf).collect(Collectors.joining(","));
-            try (PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO `orders` (`Customer ID`, `Date of Order`, `Revenue`, `Item Purchased`, `Queue Order`) "
-                    + "VALUES (?, CURRENT_DATE(), ?, ?, 0)")) {
-                stmt.setInt(1, customerId);
-                stmt.setDouble(2, total);
-                stmt.setString(3, itemPurchased);
-                stmt.executeUpdate();
-            }
-
-            // Update stock
-            try (PreparedStatement stmt = conn.prepareStatement(
-                    "UPDATE partlist SET `Stock` = `Stock` - 1 WHERE `Part ID` = ? AND `Stock` > 0")) {
-                for (int partId : partIds) {
-                    stmt.setInt(1, partId);
-                    stmt.addBatch();
-                }
-                int[] updateCounts = stmt.executeBatch();
-                for (int count : updateCounts) {
-                    if (count == 0) {
-                        JOptionPane.showMessageDialog(this, "A part is out of stock.", "Warning", JOptionPane.WARNING_MESSAGE);
-                    }
-                }
-            }
-
-            JOptionPane.showMessageDialog(this, "Order finalized successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private boolean addPart(JComboBox<String> comboBox, int expectedType, List<Integer> partIds) {
-        String selected = (String) comboBox.getSelectedItem();
-        if ("none".equals(selected)) {
-            return true;
-        }
-
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(
-                "SELECT `Part ID`, `Price`, `Stock` FROM partlist WHERE `Part Name` = ? AND `Type` = ?")) {
-            stmt.setString(1, selected);
-            stmt.setInt(2, expectedType);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                int partId = rs.getInt("Part ID");
-                double price = rs.getDouble("Price");
-                int stock = rs.getInt("Stock");
-                if (stock <= 0) {
-                    JOptionPane.showMessageDialog(this, selected + " is out of stock.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return false;
-                }
-                partIds.add(partId);
-                total += price;
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid part: " + selected, "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error checking part: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
+        
     }//GEN-LAST:event_BTBuildActionPerformed
 
     private void CBCPUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCPUActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBCPUActionPerformed
 
     private void CBMOBOActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMOBOActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBMOBOActionPerformed
 
     private void CBPSUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBPSUActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBPSUActionPerformed
 
     private void CBRAMActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBRAMActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBRAMActionPerformed
 
     private void CBCoolerActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCoolerActionPerformed
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBCoolerActionPerformed
 
     private void CBCaseActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBCaseActionPerformed
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBCaseActionPerformed
 
     private void CBGPUActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBGPUActionPerformed
-        
+        // Get selected part from the combo box
+        String selectedPartName = (String) CBGPU.getSelectedItem();
     }//GEN-LAST:event_CBGPUActionPerformed
 
     private void CBStorageActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBStorageActionPerformed
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_CBStorageActionPerformed
 
     @SuppressWarnings({"Convert2Lambda", "override"})
@@ -1026,24 +808,31 @@ public class ConsumerInterface extends javax.swing.JFrame {
     private javax.swing.JPanel PanStorage;
     private javax.swing.JTextArea TAPartsTotal;
     private javax.swing.JTextField TFAdress;
-    private javax.swing.JTextField TFCPUPrice;
-    private javax.swing.JTextField TFCasePrice;
     private javax.swing.JTextField TFCity;
-    private javax.swing.JTextField TFCoolerPrice;
     private javax.swing.JTextField TFEmail;
     private javax.swing.JTextField TFFullName;
-    private javax.swing.JTextField TFGPUPrice;
-    private javax.swing.JTextField TFMOBOPrice;
-    private javax.swing.JTextField TFPSUPrice;
     private javax.swing.JTextField TFPhoneNO;
     private javax.swing.JTextField TFProvince;
-    private javax.swing.JTextField TFRAMPrice;
-    private javax.swing.JTextField TFStoragePrice;
+    private javax.swing.JTextPane TPCPUPrice;
+    private javax.swing.JTextPane TPCasePrice;
+    private javax.swing.JTextPane TPCoolerPrice;
+    private javax.swing.JTextPane TPGPUPrice;
+    private javax.swing.JTextPane TPMOBOPrice;
     private javax.swing.JTabbedPane TPOptions;
+    private javax.swing.JTextPane TPPSUPrice;
+    private javax.swing.JTextPane TPRAMPrice;
+    private javax.swing.JTextPane TPStoragePrice;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     // End of variables declaration//GEN-END:variables
-    
 }
