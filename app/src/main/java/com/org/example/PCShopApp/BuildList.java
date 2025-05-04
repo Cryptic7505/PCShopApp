@@ -39,10 +39,10 @@ public class BuildList extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBList = new javax.swing.JTable();
-        TFFirstN = new javax.swing.JTextField();
+        TFFullN = new javax.swing.JTextField();
         TFAdress = new javax.swing.JTextField();
         TFEmail = new javax.swing.JTextField();
-        TFLastN = new javax.swing.JTextField();
+        TFPhone = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         TFTotal = new javax.swing.JTextField();
@@ -138,14 +138,19 @@ public class BuildList extends javax.swing.JFrame {
             TBList.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        TFFirstN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        TFFirstN.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        TFFirstN.setText("Full Name");
-        TFFirstN.setToolTipText("");
-        TFFirstN.setPreferredSize(new java.awt.Dimension(220, 40));
-        TFFirstN.addActionListener(new java.awt.event.ActionListener() {
+        TFFullN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        TFFullN.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        TFFullN.setText("Full Name");
+        TFFullN.setToolTipText("");
+        TFFullN.setPreferredSize(new java.awt.Dimension(220, 40));
+        TFFullN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TFFullNMouseClicked(evt);
+            }
+        });
+        TFFullN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFFirstNActionPerformed(evt);
+                TFFullNActionPerformed(evt);
             }
         });
 
@@ -169,9 +174,14 @@ public class BuildList extends javax.swing.JFrame {
             }
         });
 
-        TFLastN.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        TFLastN.setText("Phone No.");
-        TFLastN.setPreferredSize(new java.awt.Dimension(230, 40));
+        TFPhone.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        TFPhone.setText("Phone No.");
+        TFPhone.setPreferredSize(new java.awt.Dimension(230, 40));
+        TFPhone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFPhoneActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -228,12 +238,12 @@ public class BuildList extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TFFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(TFFullN, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(TFAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TFLastN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(99, 99, 99)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -247,17 +257,17 @@ public class BuildList extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TFFirstN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TFFullN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(TFEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TFLastN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(TFPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                        .addGap(7, 7, 7)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                        .addComponent(BTNConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7))
+                    .addComponent(TFAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -274,9 +284,9 @@ public class BuildList extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TFFirstNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFirstNActionPerformed
+    private void TFFullNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFullNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TFFirstNActionPerformed
+    }//GEN-LAST:event_TFFullNActionPerformed
 
     private void TFAdressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFAdressActionPerformed
         // TODO add your handling code here:
@@ -293,6 +303,14 @@ public class BuildList extends javax.swing.JFrame {
     private void TFTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFTotalActionPerformed
+
+    private void TFFullNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TFFullNMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFFullNMouseClicked
+
+    private void TFPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFPhoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFPhoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,8 +356,8 @@ public class BuildList extends javax.swing.JFrame {
     private javax.swing.JTable TBList;
     private javax.swing.JTextField TFAdress;
     private javax.swing.JTextField TFEmail;
-    private javax.swing.JTextField TFFirstN;
-    private javax.swing.JTextField TFLastN;
+    private javax.swing.JTextField TFFullN;
+    private javax.swing.JTextField TFPhone;
     private javax.swing.JTextField TFTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
