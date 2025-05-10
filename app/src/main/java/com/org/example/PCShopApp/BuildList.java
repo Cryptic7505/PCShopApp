@@ -196,6 +196,7 @@ public class BuildList extends javax.swing.JFrame {
         jLabel1.setText("Total:      $");
         jLabel1.setFocusable(false);
 
+        TFTotal.setEditable(false);
         TFTotal.setBackground(new java.awt.Color(30, 30, 30));
         TFTotal.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFTotal.setText("0");

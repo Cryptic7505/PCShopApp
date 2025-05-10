@@ -68,6 +68,14 @@ public class ConsumerInterface extends javax.swing.JFrame {
         populateComboBox(CBPSU, 6, "Power Supply");
         populateComboBox(CBCooler, 7, "Cooler");
         populateComboBox(CBCase, 8, "Case");
+        populateComboBox(CBMouse, 14, "Mouse");
+        populateComboBox(CBMonitor, 12, "Monitor");
+        populateComboBox(CBFan, 21, "Fan");
+        populateComboBox(CBKey, 13, "Keyboard");
+        populateComboBox(CBUPS, 20, "UPS (Uninterrruptible Power Supply)");
+        populateComboBox(CBMic, 17, "Microphone");
+        populateComboBox(CBSpeak, 15, "Speakers");
+        populateComboBox(CBWebcam, 16, "Webcam");
         // Add other ComboBoxes as needed
     }
     private void setupFormFields() {
@@ -133,6 +141,14 @@ public class ConsumerInterface extends javax.swing.JFrame {
         componentConfigs.add(new ComponentConfig(CBPSU, TFPSUPrice, 6));       // PSU
         componentConfigs.add(new ComponentConfig(CBCooler, TFCoolerPrice, 7)); // Cooler
         componentConfigs.add(new ComponentConfig(CBCase, TFCasePrice, 8));     // Case
+        componentConfigs.add(new ComponentConfig(CBMouse,TFMousePrice, 14));
+        componentConfigs.add(new ComponentConfig(CBMonitor,TFMonitorPrice, 12));
+        componentConfigs.add(new ComponentConfig(CBFan,TFFanPrice, 21));
+        componentConfigs.add(new ComponentConfig(CBKey,TFKeyPrice, 13));
+        componentConfigs.add(new ComponentConfig(CBUPS,TFUPSPrice, 20));
+        componentConfigs.add(new ComponentConfig(CBMic,TFMicPrice, 17));
+        componentConfigs.add(new ComponentConfig(CBSpeak,TFSpeakPrice, 15));
+        componentConfigs.add(new ComponentConfig(CBWebcam,TFWebcamPrice, 16));
 
         // Add listeners to all components
         componentConfigs.forEach(config -> {
@@ -249,6 +265,30 @@ public class ConsumerInterface extends javax.swing.JFrame {
         PanStorage = new javax.swing.JPanel();
         TFStoragePrice = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
+        CBMouse = new javax.swing.JComboBox<>();
+        CBMonitor = new javax.swing.JComboBox<>();
+        CBFan = new javax.swing.JComboBox<>();
+        CBKey = new javax.swing.JComboBox<>();
+        PanMouse = new javax.swing.JPanel();
+        TFMousePrice = new javax.swing.JTextField();
+        PanMonitor = new javax.swing.JPanel();
+        TFMonitorPrice = new javax.swing.JTextField();
+        PanFan = new javax.swing.JPanel();
+        TFFanPrice = new javax.swing.JTextField();
+        PanKey = new javax.swing.JPanel();
+        TFKeyPrice = new javax.swing.JTextField();
+        PanWebcam = new javax.swing.JPanel();
+        TFWebcamPrice = new javax.swing.JTextField();
+        CBWebcam = new javax.swing.JComboBox<>();
+        CBSpeak = new javax.swing.JComboBox<>();
+        PanSpeak = new javax.swing.JPanel();
+        TFSpeakPrice = new javax.swing.JTextField();
+        CBMic = new javax.swing.JComboBox<>();
+        PanMic = new javax.swing.JPanel();
+        TFMicPrice = new javax.swing.JTextField();
+        CBUPS = new javax.swing.JComboBox<>();
+        PanUPS = new javax.swing.JPanel();
+        TFUPSPrice = new javax.swing.JTextField();
         TFFullName = new javax.swing.JTextField();
         TFPhoneNO = new javax.swing.JTextField();
         TFEmail = new javax.swing.JTextField();
@@ -625,15 +665,346 @@ public class ConsumerInterface extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(26, 43, 59));
         jPanel3.setPreferredSize(new java.awt.Dimension(1263, 860));
 
+        CBMouse.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBMouse.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBMouse.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBMouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBMouseActionPerformed(evt);
+            }
+        });
+
+        CBMonitor.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBMonitor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBMonitor.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBMonitor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBMonitorActionPerformed(evt);
+            }
+        });
+
+        CBFan.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBFan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBFan.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBFan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBFanActionPerformed(evt);
+            }
+        });
+
+        CBKey.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBKey.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBKey.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBKey.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBKeyActionPerformed(evt);
+            }
+        });
+
+        PanMouse.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFMousePrice.setEditable(false);
+        TFMousePrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFMousePrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFMousePrice.setAutoscrolls(false);
+        TFMousePrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanMouseLayout = new javax.swing.GroupLayout(PanMouse);
+        PanMouse.setLayout(PanMouseLayout);
+        PanMouseLayout.setHorizontalGroup(
+            PanMouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMouseLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFMousePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanMouseLayout.setVerticalGroup(
+            PanMouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMouseLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFMousePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        PanMonitor.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFMonitorPrice.setEditable(false);
+        TFMonitorPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFMonitorPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFMonitorPrice.setAutoscrolls(false);
+        TFMonitorPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanMonitorLayout = new javax.swing.GroupLayout(PanMonitor);
+        PanMonitor.setLayout(PanMonitorLayout);
+        PanMonitorLayout.setHorizontalGroup(
+            PanMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMonitorLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFMonitorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanMonitorLayout.setVerticalGroup(
+            PanMonitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMonitorLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFMonitorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        PanFan.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFFanPrice.setEditable(false);
+        TFFanPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFFanPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFFanPrice.setAutoscrolls(false);
+        TFFanPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanFanLayout = new javax.swing.GroupLayout(PanFan);
+        PanFan.setLayout(PanFanLayout);
+        PanFanLayout.setHorizontalGroup(
+            PanFanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanFanLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFFanPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanFanLayout.setVerticalGroup(
+            PanFanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanFanLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFFanPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        PanKey.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFKeyPrice.setEditable(false);
+        TFKeyPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFKeyPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFKeyPrice.setAutoscrolls(false);
+        TFKeyPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanKeyLayout = new javax.swing.GroupLayout(PanKey);
+        PanKey.setLayout(PanKeyLayout);
+        PanKeyLayout.setHorizontalGroup(
+            PanKeyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanKeyLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFKeyPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanKeyLayout.setVerticalGroup(
+            PanKeyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanKeyLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFKeyPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        PanWebcam.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFWebcamPrice.setEditable(false);
+        TFWebcamPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFWebcamPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFWebcamPrice.setAutoscrolls(false);
+        TFWebcamPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanWebcamLayout = new javax.swing.GroupLayout(PanWebcam);
+        PanWebcam.setLayout(PanWebcamLayout);
+        PanWebcamLayout.setHorizontalGroup(
+            PanWebcamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanWebcamLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFWebcamPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanWebcamLayout.setVerticalGroup(
+            PanWebcamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanWebcamLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFWebcamPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        CBWebcam.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBWebcam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBWebcam.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBWebcam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBWebcamActionPerformed(evt);
+            }
+        });
+
+        CBSpeak.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBSpeak.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBSpeak.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBSpeak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBSpeakActionPerformed(evt);
+            }
+        });
+
+        PanSpeak.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFSpeakPrice.setEditable(false);
+        TFSpeakPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFSpeakPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFSpeakPrice.setAutoscrolls(false);
+        TFSpeakPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanSpeakLayout = new javax.swing.GroupLayout(PanSpeak);
+        PanSpeak.setLayout(PanSpeakLayout);
+        PanSpeakLayout.setHorizontalGroup(
+            PanSpeakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanSpeakLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFSpeakPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanSpeakLayout.setVerticalGroup(
+            PanSpeakLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanSpeakLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFSpeakPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        CBMic.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBMic.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBMic.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBMic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBMicActionPerformed(evt);
+            }
+        });
+
+        PanMic.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFMicPrice.setEditable(false);
+        TFMicPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFMicPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFMicPrice.setAutoscrolls(false);
+        TFMicPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanMicLayout = new javax.swing.GroupLayout(PanMic);
+        PanMic.setLayout(PanMicLayout);
+        PanMicLayout.setHorizontalGroup(
+            PanMicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMicLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFMicPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanMicLayout.setVerticalGroup(
+            PanMicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanMicLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFMicPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        CBUPS.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        CBUPS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "" }));
+        CBUPS.setPreferredSize(new java.awt.Dimension(265, 44));
+        CBUPS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBUPSActionPerformed(evt);
+            }
+        });
+
+        PanUPS.setPreferredSize(new java.awt.Dimension(265, 276));
+
+        TFUPSPrice.setEditable(false);
+        TFUPSPrice.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TFUPSPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFUPSPrice.setAutoscrolls(false);
+        TFUPSPrice.setFocusable(false);
+
+        javax.swing.GroupLayout PanUPSLayout = new javax.swing.GroupLayout(PanUPS);
+        PanUPS.setLayout(PanUPSLayout);
+        PanUPSLayout.setHorizontalGroup(
+            PanUPSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanUPSLayout.createSequentialGroup()
+                .addContainerGap(130, Short.MAX_VALUE)
+                .addComponent(TFUPSPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        PanUPSLayout.setVerticalGroup(
+            PanUPSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanUPSLayout.createSequentialGroup()
+                .addContainerGap(211, Short.MAX_VALUE)
+                .addComponent(TFUPSPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CBUPS, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanUPS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBMouse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanMouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(CBMonitor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PanMonitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(CBMic, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PanMic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CBFan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanFan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBSpeak, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanSpeak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CBWebcam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBKey, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanKey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CBMouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBMonitor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBFan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CBKey, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PanMouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanMonitor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanFan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(CBWebcam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(PanWebcam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(CBSpeak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(PanSpeak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(CBMic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(PanMic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(CBUPS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(PanUPS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         TPOptions.addTab("Peripherals", jPanel3);
@@ -915,6 +1286,38 @@ public class ConsumerInterface extends javax.swing.JFrame {
         
     }//GEN-LAST:event_CBStorageActionPerformed
 
+    private void CBMouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMouseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBMouseActionPerformed
+
+    private void CBMonitorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMonitorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBMonitorActionPerformed
+
+    private void CBFanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBFanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBFanActionPerformed
+
+    private void CBKeyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBKeyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBKeyActionPerformed
+
+    private void CBWebcamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBWebcamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBWebcamActionPerformed
+
+    private void CBSpeakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSpeakActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBSpeakActionPerformed
+
+    private void CBMicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBMicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBMicActionPerformed
+
+    private void CBUPSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBUPSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBUPSActionPerformed
+
     @SuppressWarnings({"Convert2Lambda", "override"})
     static ConsumerInterface Shopframe = new ConsumerInterface();
     public static void main(String args[]) {
@@ -926,19 +1329,35 @@ public class ConsumerInterface extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CBCPU;
     private javax.swing.JComboBox<String> CBCase;
     private javax.swing.JComboBox<String> CBCooler;
+    private javax.swing.JComboBox<String> CBFan;
     private javax.swing.JComboBox<String> CBGPU;
+    private javax.swing.JComboBox<String> CBKey;
     private javax.swing.JComboBox<String> CBMOBO;
+    private javax.swing.JComboBox<String> CBMic;
+    private javax.swing.JComboBox<String> CBMonitor;
+    private javax.swing.JComboBox<String> CBMouse;
     private javax.swing.JComboBox<String> CBPSU;
     private javax.swing.JComboBox<String> CBRAM;
+    private javax.swing.JComboBox<String> CBSpeak;
     private javax.swing.JComboBox<String> CBStorage;
+    private javax.swing.JComboBox<String> CBUPS;
+    private javax.swing.JComboBox<String> CBWebcam;
     private javax.swing.JPanel PanCPU;
     private javax.swing.JPanel PanCase;
     private javax.swing.JPanel PanCooler;
+    private javax.swing.JPanel PanFan;
     private javax.swing.JPanel PanGPU;
+    private javax.swing.JPanel PanKey;
     private javax.swing.JPanel PanMOBO;
+    private javax.swing.JPanel PanMic;
+    private javax.swing.JPanel PanMonitor;
+    private javax.swing.JPanel PanMouse;
     private javax.swing.JPanel PanPSU;
     private javax.swing.JPanel PanRAM;
+    private javax.swing.JPanel PanSpeak;
     private javax.swing.JPanel PanStorage;
+    private javax.swing.JPanel PanUPS;
+    private javax.swing.JPanel PanWebcam;
     private javax.swing.JTextArea TAPartsTotal;
     private javax.swing.JTextField TFAdress;
     private javax.swing.JTextField TFCPUPrice;
@@ -946,14 +1365,22 @@ public class ConsumerInterface extends javax.swing.JFrame {
     private javax.swing.JTextField TFCity;
     private javax.swing.JTextField TFCoolerPrice;
     private javax.swing.JTextField TFEmail;
+    private javax.swing.JTextField TFFanPrice;
     private javax.swing.JTextField TFFullName;
     private javax.swing.JTextField TFGPUPrice;
+    private javax.swing.JTextField TFKeyPrice;
     private javax.swing.JTextField TFMOBOPrice;
+    private javax.swing.JTextField TFMicPrice;
+    private javax.swing.JTextField TFMonitorPrice;
+    private javax.swing.JTextField TFMousePrice;
     private javax.swing.JTextField TFPSUPrice;
     private javax.swing.JTextField TFPhoneNO;
     private javax.swing.JTextField TFProvince;
     private javax.swing.JTextField TFRAMPrice;
+    private javax.swing.JTextField TFSpeakPrice;
     private javax.swing.JTextField TFStoragePrice;
+    private javax.swing.JTextField TFUPSPrice;
+    private javax.swing.JTextField TFWebcamPrice;
     private javax.swing.JTabbedPane TPOptions;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
