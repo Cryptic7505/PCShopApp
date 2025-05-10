@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 /**
  *
  * @author user
@@ -14,6 +17,8 @@ public class DataToAccess extends javax.swing.JFrame {
      * Creates new form DataToAccess
      */
     public DataToAccess() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
     }
 
@@ -27,33 +32,33 @@ public class DataToAccess extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Jorder = new javax.swing.JButton();
-        jinven = new javax.swing.JButton();
+        BTOrderList = new javax.swing.JButton();
+        BTInven = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jlogout = new javax.swing.JButton();
+        BTLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(40, 53, 98));
 
-        Jorder.setBackground(new java.awt.Color(30, 39, 73));
-        Jorder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Jorder.setForeground(new java.awt.Color(255, 255, 255));
-        Jorder.setText("Orders");
-        Jorder.addActionListener(new java.awt.event.ActionListener() {
+        BTOrderList.setBackground(new java.awt.Color(30, 39, 73));
+        BTOrderList.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTOrderList.setForeground(new java.awt.Color(255, 255, 255));
+        BTOrderList.setText("Orders");
+        BTOrderList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JorderActionPerformed(evt);
+                BTOrderListActionPerformed(evt);
             }
         });
 
-        jinven.setBackground(new java.awt.Color(30, 39, 73));
-        jinven.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jinven.setForeground(new java.awt.Color(255, 255, 255));
-        jinven.setText("Inventory");
-        jinven.addActionListener(new java.awt.event.ActionListener() {
+        BTInven.setBackground(new java.awt.Color(30, 39, 73));
+        BTInven.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTInven.setForeground(new java.awt.Color(255, 255, 255));
+        BTInven.setText("Inventory");
+        BTInven.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jinvenActionPerformed(evt);
+                BTInvenActionPerformed(evt);
             }
         });
 
@@ -81,13 +86,13 @@ public class DataToAccess extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jlogout.setBackground(new java.awt.Color(30, 39, 73));
-        jlogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jlogout.setForeground(new java.awt.Color(255, 255, 255));
-        jlogout.setText("Log out");
-        jlogout.addActionListener(new java.awt.event.ActionListener() {
+        BTLogout.setBackground(new java.awt.Color(30, 39, 73));
+        BTLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTLogout.setForeground(new java.awt.Color(255, 255, 255));
+        BTLogout.setText("Log out");
+        BTLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jlogoutActionPerformed(evt);
+                BTLogoutActionPerformed(evt);
             }
         });
 
@@ -101,13 +106,13 @@ public class DataToAccess extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 155, Short.MAX_VALUE)
-                .addComponent(jlogout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(152, 152, 152))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jinven, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTInven, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Jorder, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTOrderList, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,10 +122,10 @@ public class DataToAccess extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Jorder, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jinven, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BTOrderList, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTInven, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jlogout, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -138,17 +143,23 @@ public class DataToAccess extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JorderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JorderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JorderActionPerformed
+    private void BTOrderListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTOrderListActionPerformed
+        OrderList orders = new OrderList();
+        orders.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTOrderListActionPerformed
 
-    private void jinvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jinvenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jinvenActionPerformed
+    private void BTInvenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTInvenActionPerformed
+        Inventory inventory = new Inventory();
+        inventory.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTInvenActionPerformed
 
-    private void jlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlogoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlogoutActionPerformed
+    private void BTLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTLogoutActionPerformed
+        EmployeeUI second = new EmployeeUI();
+        second.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +197,11 @@ public class DataToAccess extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Jorder;
+    private javax.swing.JButton BTInven;
+    private javax.swing.JButton BTLogout;
+    private javax.swing.JButton BTOrderList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton jinven;
-    private javax.swing.JButton jlogout;
     // End of variables declaration//GEN-END:variables
 }

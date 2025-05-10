@@ -50,14 +50,14 @@
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="155" max="32767" attributes="0"/>
-                  <Component id="jlogout" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Component id="BTLogout" min="-2" pref="122" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="jinven" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Component id="BTInven" min="-2" pref="122" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="Jorder" min="-2" pref="122" max="-2" attributes="0"/>
+                  <Component id="BTOrderList" min="-2" pref="122" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -69,18 +69,18 @@
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="Jorder" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="jinven" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="BTOrderList" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="BTInven" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="jlogout" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="BTLogout" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="Jorder">
+        <Component class="javax.swing.JButton" name="BTOrderList">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="49" green="27" red="1e" type="rgb"/>
@@ -94,10 +94,10 @@
             <Property name="text" type="java.lang.String" value="Orders"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JorderActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTOrderListActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jinven">
+        <Component class="javax.swing.JButton" name="BTInven">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="49" green="27" red="1e" type="rgb"/>
@@ -111,7 +111,7 @@
             <Property name="text" type="java.lang.String" value="Inventory"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jinvenActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTInvenActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -162,7 +162,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jlogout">
+        <Component class="javax.swing.JButton" name="BTLogout">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="49" green="27" red="1e" type="rgb"/>
@@ -176,7 +176,7 @@
             <Property name="text" type="java.lang.String" value="Log out"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jlogoutActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTLogoutActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

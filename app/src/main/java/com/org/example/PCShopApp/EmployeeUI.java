@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 import javax.swing.*;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
 /**
  *
  * @author user
@@ -15,6 +18,8 @@ public class EmployeeUI extends javax.swing.JFrame {
      * Creates new form EmployeeUI
      */
     public EmployeeUI() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
     }
 
@@ -157,6 +162,9 @@ public class EmployeeUI extends javax.swing.JFrame {
         }
         else if(EUserName.getText().contains("Admin")&& EPassWord.getText().contains("Admin123")){
             JOptionPane.showMessageDialog(null, "Login successful");
+            DataToAccess option = new DataToAccess();
+            this.dispose();
+            option.setVisible(true);
         }
         else {
             JOptionPane.showMessageDialog(null, "Wrong Username or Password","Message", JOptionPane.ERROR_MESSAGE);

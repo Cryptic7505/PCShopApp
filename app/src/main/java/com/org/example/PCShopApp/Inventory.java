@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 /**
  *
  * @author user
@@ -13,7 +16,10 @@ public class Inventory extends javax.swing.JFrame {
     /**
      * Creates new form Inventory
      */
+    Newnew addItemform = new Newnew();
     public Inventory() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
     }
 
@@ -28,23 +34,28 @@ public class Inventory extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        Jback1 = new javax.swing.JButton();
+        BTBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jaddstock = new javax.swing.JButton();
-        jadditem = new javax.swing.JButton();
-        jremoveitem = new javax.swing.JButton();
+        BTAddStock = new javax.swing.JButton();
+        BTAddItem = new javax.swing.JButton();
+        BTRemoveItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(88, 105, 163));
 
-        Jback1.setBackground(new java.awt.Color(40, 53, 98));
-        Jback1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Jback1.setForeground(new java.awt.Color(255, 255, 255));
-        Jback1.setText("Back");
+        BTBack.setBackground(new java.awt.Color(40, 53, 98));
+        BTBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTBack.setForeground(new java.awt.Color(255, 255, 255));
+        BTBack.setText("Back");
+        BTBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTBackActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,33 +103,33 @@ public class Inventory extends javax.swing.JFrame {
                 .addGap(8, 8, 8))
         );
 
-        jaddstock.setBackground(new java.awt.Color(40, 53, 98));
-        jaddstock.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jaddstock.setForeground(new java.awt.Color(255, 255, 255));
-        jaddstock.setText("Add Stock");
-        jaddstock.addActionListener(new java.awt.event.ActionListener() {
+        BTAddStock.setBackground(new java.awt.Color(40, 53, 98));
+        BTAddStock.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BTAddStock.setForeground(new java.awt.Color(255, 255, 255));
+        BTAddStock.setText("Add Stock");
+        BTAddStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jaddstockActionPerformed(evt);
+                BTAddStockActionPerformed(evt);
             }
         });
 
-        jadditem.setBackground(new java.awt.Color(40, 53, 98));
-        jadditem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jadditem.setForeground(new java.awt.Color(255, 255, 255));
-        jadditem.setText("Add Item");
-        jadditem.addActionListener(new java.awt.event.ActionListener() {
+        BTAddItem.setBackground(new java.awt.Color(40, 53, 98));
+        BTAddItem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BTAddItem.setForeground(new java.awt.Color(255, 255, 255));
+        BTAddItem.setText("Add Item");
+        BTAddItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jadditemActionPerformed(evt);
+                BTAddItemActionPerformed(evt);
             }
         });
 
-        jremoveitem.setBackground(new java.awt.Color(40, 53, 98));
-        jremoveitem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jremoveitem.setForeground(new java.awt.Color(255, 255, 255));
-        jremoveitem.setText("Remove Item");
-        jremoveitem.addActionListener(new java.awt.event.ActionListener() {
+        BTRemoveItem.setBackground(new java.awt.Color(40, 53, 98));
+        BTRemoveItem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        BTRemoveItem.setForeground(new java.awt.Color(255, 255, 255));
+        BTRemoveItem.setText("Remove Item");
+        BTRemoveItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jremoveitemActionPerformed(evt);
+                BTRemoveItemActionPerformed(evt);
             }
         });
 
@@ -132,16 +143,16 @@ public class Inventory extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(Jback1)
+                .addComponent(BTBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jadditem)
+                        .addComponent(BTAddItem)
                         .addGap(18, 18, 18)
-                        .addComponent(jremoveitem))
-                    .addComponent(jaddstock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BTRemoveItem))
+                    .addComponent(BTAddStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
@@ -151,15 +162,15 @@ public class Inventory extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Jback1)
+                            .addComponent(BTBack)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jaddstock)
+                        .addComponent(BTAddStock)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jadditem)
-                            .addComponent(jremoveitem))))
+                            .addComponent(BTAddItem)
+                            .addComponent(BTRemoveItem))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(59, Short.MAX_VALUE))
@@ -192,17 +203,23 @@ public class Inventory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jaddstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jaddstockActionPerformed
+    private void BTAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAddStockActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jaddstockActionPerformed
+    }//GEN-LAST:event_BTAddStockActionPerformed
 
-    private void jadditemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadditemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jadditemActionPerformed
+    private void BTAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAddItemActionPerformed
+        addItemform.setVisible(true);
+    }//GEN-LAST:event_BTAddItemActionPerformed
 
-    private void jremoveitemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jremoveitemActionPerformed
+    private void BTRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRemoveItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jremoveitemActionPerformed
+    }//GEN-LAST:event_BTRemoveItemActionPerformed
+
+    private void BTBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBackActionPerformed
+        DataToAccess dataToAccess = new DataToAccess();
+        dataToAccess.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,19 +257,15 @@ public class Inventory extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Jback1;
+    private javax.swing.JButton BTAddItem;
+    private javax.swing.JButton BTAddStock;
+    private javax.swing.JButton BTBack;
+    private javax.swing.JButton BTRemoveItem;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jadditem;
-    private javax.swing.JButton jaddstock;
-    private javax.swing.JButton jremoveitem;
     // End of variables declaration//GEN-END:variables
 }

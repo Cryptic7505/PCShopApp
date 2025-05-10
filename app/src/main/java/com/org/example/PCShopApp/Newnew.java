@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 /**
  *
  * @author user
@@ -14,6 +17,8 @@ public class Newnew extends javax.swing.JFrame {
      * Creates new form Newnew
      */
     public Newnew() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
     }
 
@@ -27,53 +32,53 @@ public class Newnew extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        tfname1 = new javax.swing.JTextField();
-        tfmodel1 = new javax.swing.JTextField();
-        tfprice1 = new javax.swing.JTextField();
+        BTReset = new javax.swing.JButton();
+        BTAddItem = new javax.swing.JButton();
+        CBType = new javax.swing.JComboBox<>();
+        TFName = new javax.swing.JTextField();
+        TFModel = new javax.swing.JTextField();
+        TFPrice = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(88, 105, 163));
 
-        jButton1.setBackground(new java.awt.Color(35, 41, 66));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Reset");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BTReset.setBackground(new java.awt.Color(35, 41, 66));
+        BTReset.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTReset.setText("Reset");
+        BTReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BTResetActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(66, 78, 122));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("Add Item");
+        BTAddItem.setBackground(new java.awt.Color(66, 78, 122));
+        BTAddItem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTAddItem.setText("Add Item");
 
-        jComboBox1.setBackground(new java.awt.Color(42, 50, 79));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", " " }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        CBType.setBackground(new java.awt.Color(42, 50, 79));
+        CBType.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CBType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Type", " " }));
+        CBType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                CBTypeActionPerformed(evt);
             }
         });
 
-        tfname1.setBackground(new java.awt.Color(66, 78, 122));
-        tfname1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tfname1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfname1.setText("Name");
+        TFName.setBackground(new java.awt.Color(66, 78, 122));
+        TFName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TFName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFName.setText("Name");
 
-        tfmodel1.setBackground(new java.awt.Color(66, 78, 122));
-        tfmodel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tfmodel1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfmodel1.setText("Model");
+        TFModel.setBackground(new java.awt.Color(66, 78, 122));
+        TFModel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TFModel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFModel.setText("Model");
 
-        tfprice1.setBackground(new java.awt.Color(66, 78, 122));
-        tfprice1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tfprice1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfprice1.setText("Price");
+        TFPrice.setBackground(new java.awt.Color(66, 78, 122));
+        TFPrice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TFPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFPrice.setText("Price");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,30 +87,30 @@ public class Newnew extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(tfname1)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addComponent(tfmodel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addComponent(tfprice1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                    .addComponent(TFName)
+                    .addComponent(CBType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BTReset, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(TFModel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                    .addComponent(TFPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BTAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(tfname1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfmodel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFModel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfprice1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BTAddItem, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(BTReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
         );
 
@@ -123,13 +128,13 @@ public class Newnew extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BTResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTResetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BTResetActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_CBTypeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,12 +172,12 @@ public class Newnew extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton BTAddItem;
+    private javax.swing.JButton BTReset;
+    private javax.swing.JComboBox<String> CBType;
+    private javax.swing.JTextField TFModel;
+    private javax.swing.JTextField TFName;
+    private javax.swing.JTextField TFPrice;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tfmodel1;
-    private javax.swing.JTextField tfname1;
-    private javax.swing.JTextField tfprice1;
     // End of variables declaration//GEN-END:variables
 }

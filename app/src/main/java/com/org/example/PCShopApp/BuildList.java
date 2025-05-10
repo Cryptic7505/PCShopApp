@@ -28,6 +28,8 @@ public class BuildList extends javax.swing.JFrame {
     private List<Map<String, Object>> partsData;
     public BuildList() {
         initComponents();
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
     }
     public void setBuildData(String fullName, String phone, String email,
             String address, String city, String province,
@@ -51,12 +53,12 @@ public class BuildList extends javax.swing.JFrame {
                 part.get("name"),
                 part.get("model"), // Now showing the model
                 part.get("type"),
-                String.format("₱%,.2f", part.get("price"))
+                String.format("%,.2f", part.get("price"))
             });
         }
 
         // Set total
-        TFTotal.setText(String.format("₱%,.2f", total));
+        TFTotal.setText(String.format("%,.2f", total));
     }
 
     private String getTypeName(int typeId) {
@@ -197,10 +199,12 @@ public class BuildList extends javax.swing.JFrame {
         jLabel1.setFocusable(false);
 
         TFTotal.setEditable(false);
-        TFTotal.setBackground(new java.awt.Color(30, 30, 30));
         TFTotal.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         TFTotal.setText("0");
+        TFTotal.setAutoscrolls(false);
         TFTotal.setBorder(null);
+        TFTotal.setFocusable(false);
+        TFTotal.setRequestFocusEnabled(false);
         TFTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFTotalActionPerformed(evt);
@@ -215,7 +219,7 @@ public class BuildList extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(TFTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -224,7 +228,7 @@ public class BuildList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(TFTotal))
+                    .addComponent(TFTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 

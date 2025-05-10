@@ -4,6 +4,9 @@
  */
 package com.org.example.PCShopApp;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 /**
  *
  * @author user
@@ -14,6 +17,8 @@ public class OrderList extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public OrderList() {
+        FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
+        FlatDarkLaf.setup();
         initComponents();
     }
 
@@ -34,7 +39,7 @@ public class OrderList extends javax.swing.JFrame {
         Jcontact1 = new java.awt.Button();
         Jqueue1 = new java.awt.Button();
         jPanel1 = new javax.swing.JPanel();
-        Jback = new javax.swing.JButton();
+        BTBack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Jcontact = new java.awt.Button();
@@ -136,10 +141,15 @@ public class OrderList extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(88, 105, 163));
 
-        Jback.setBackground(new java.awt.Color(40, 53, 98));
-        Jback.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Jback.setForeground(new java.awt.Color(255, 255, 255));
-        Jback.setText("Back");
+        BTBack.setBackground(new java.awt.Color(40, 53, 98));
+        BTBack.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTBack.setForeground(new java.awt.Color(255, 255, 255));
+        BTBack.setText("Back");
+        BTBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTBackActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(40, 53, 98));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
@@ -213,7 +223,7 @@ public class OrderList extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(Jback))
+                                .addComponent(BTBack))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -229,7 +239,7 @@ public class OrderList extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Jback))
+                        .addComponent(BTBack))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(Jcontact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -259,6 +269,12 @@ public class OrderList extends javax.swing.JFrame {
     private void JbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JbackActionPerformed
+
+    private void BTBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBackActionPerformed
+        DataToAccess dataToAccess = new DataToAccess();
+        dataToAccess.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BTBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,7 +313,7 @@ public class OrderList extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Jback;
+    private javax.swing.JButton BTBack;
     private javax.swing.JButton Jback1;
     private java.awt.Button Jcontact;
     private java.awt.Button Jcontact1;
@@ -305,16 +321,12 @@ public class OrderList extends javax.swing.JFrame {
     private java.awt.Button Jqueue;
     private java.awt.Button Jqueue1;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
