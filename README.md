@@ -8,19 +8,19 @@ The application has the following functionality:
 * Shop Owner/Employee UI for Data Display and Stock management
 
 ## TODO
-* [ ] Front end
+* [X] Front end
     * [X] ConsumerUI
         * [X] Part Selection
         * [X] Build/Order Confirmation
-    * [ ] EmployeeUI
-        * [ ] Login
-        * [ ] Information to Access Option
-        * [ ] Orders List
-        * [ ] Shop Inventory
+    * [X] EmployeeUI
+        * [X] Login
+        * [X] Information to Access Option
+        * [X] Orders List
+        * [X] Shop Inventory
     
-* [ ] Back end
-    * [ ] ConsumerUI information to database
-        * [ ] Part Selection
+* [X] Back end
+    * [X] ConsumerUI information to database
+        * [X] Part Selection
             * [X] Customer Information Input
             * [X] Dynamic Price on parts
             * [X] Dynamic Total Price
@@ -31,11 +31,11 @@ The application has the following functionality:
             * [X] Order information to Table Display
             * [X] Customer Information Transfer
             * [X] Store information and update to customer,partlist,orderlist table in the database
-    * [ ] EmployeeUI Functionality
-        * [ ] Login Confirmation and validation
-        * [ ] Information to display option
-        * [ ] Order list
-            * [ ] diplay Order ID,CustomerID,Date of Order,Revenue; Item Purchased (By Part Names), (Que Order)
-            * [ ] Queue Order Function
-        * [ ] Shop Inventory
-            * [ ] Display partlist table with functionality of adding stock in selected item
+    * [X] EmployeeUI Functionality
+        * [X] Login Confirmation and validation
+        * [X] Information to display option
+        * [X] Order list
+            * [X] diplay Order ID,CustomerID,Date of Order,Revenue; Item Purchased (By Part Names), (Que Order)
+            * [X] Queue Order Function
+        * [X] Shop Inventory
+            * [X] Display partlist table with functionality of adding stock in selected item

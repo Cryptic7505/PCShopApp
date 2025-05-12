@@ -7,20 +7,104 @@ package com.org.example.PCShopApp;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.sql.*;
 /**
  *
- * @author user
+ * @author Catmosphere, Cryptic
  */
 public class OrderList extends javax.swing.JFrame {
 
-    /**
-     * Creates new form NewJFrame
-     */
     public OrderList() {
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
         initComponents();
+        setLocationRelativeTo(null);
+        setupTableModel();
+        loadOrderTable();
+
+        // Attach action listeners for queue and contact
+        Jqueue.addActionListener(this::handleQueueOrder);
+        Jcontact.addActionListener(this::handleContactCustomer);
     }
+
+    private void setupTableModel() {
+        String[] cols = {"Order ID", "Customer ID", "Date of Order", "Revenue", "Item Purchased", "Queue Order"};
+        DefaultTableModel model = new DefaultTableModel(cols, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int idx) {
+                switch (idx) {
+                    case 0:
+                    case 1:
+                        return Integer.class;
+                    case 3:
+                        return Double.class;
+                    case 5:
+                        return Boolean.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        Jordert.setModel(model);
+    }
+
+    private void loadOrderTable() {
+        String sql = "SELECT `Order ID`,`Customer ID`,`Date of Order`,`Revenue`,`Item Purchased`,`Queue Order` FROM orders";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            DefaultTableModel model = (DefaultTableModel) Jordert.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("Order ID"),
+                    rs.getInt("Customer ID"),
+                    rs.getString("Date of Order"),
+                    rs.getDouble("Revenue"),
+                    rs.getString("Item Purchased"),
+                    rs.getBoolean("Queue Order")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading orders: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handleQueueOrder(ActionEvent evt) {
+        int row = Jordert.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select an order to queue.");
+            return;
+        }
+        int orderId = (int) Jordert.getValueAt(row, 0);
+        String sql = "UPDATE orders SET `Queue Order` = true WHERE `Order ID` = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, orderId);
+            ps.executeUpdate();
+            loadOrderTable();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error updating queue status: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handleContactCustomer(ActionEvent evt) {
+        int row = Jordert.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select an order to contact customer.");
+            return;
+        }
+        // Placeholder for actual notification logic
+        JOptionPane.showMessageDialog(this, "Customer has been notified via email.");
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -138,6 +222,7 @@ public class OrderList extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Shop Orders");
 
         jPanel1.setBackground(new java.awt.Color(88, 105, 163));
 
@@ -271,8 +356,7 @@ public class OrderList extends javax.swing.JFrame {
     }//GEN-LAST:event_JbackActionPerformed
 
     private void BTBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBackActionPerformed
-        DataToAccess dataToAccess = new DataToAccess();
-        dataToAccess.setVisible(true);
+        new DataToAccess().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BTBackActionPerformed
 

@@ -4,23 +4,182 @@
  */
 package com.org.example.PCShopApp;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.*;
+import java.sql.*;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
 /**
  *
- * @author user
+ * @author Catmosphere, Cryptic
  */
 public class Inventory extends javax.swing.JFrame {
 
     /**
      * Creates new form Inventory
      */
-    Newnew addItemform = new Newnew();
+    private static final String PLACEHOLDER = "Add Stock";
+    Newnew addItemform;
+
     public Inventory() {
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
         initComponents();
+        setLocationRelativeTo(null);
+        setupTableModel();
+        loadInventoryTable();
+        setupPlaceholder();
+        
+        BTRemoveItem.addActionListener(e -> removeSelectedPart());
+        TFAddStock.addActionListener(e -> addStockToSelectedPart());
+    }
+
+    private void setupPlaceholder() {
+        TFAddStock.setText(PLACEHOLDER);
+        TFAddStock.setForeground(java.awt.Color.GRAY);
+        TFAddStock.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (TFAddStock.getText().equals(PLACEHOLDER)) {
+                    TFAddStock.setText("");
+                    TFAddStock.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (TFAddStock.getText().isEmpty()) {
+                    TFAddStock.setText(PLACEHOLDER);
+                    TFAddStock.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
+    }
+
+    private void setupTableModel() {
+        String[] columns = {"Part ID", "Part Name", "Model", "Type", "Stock", "Price", "Restock?"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int idx) {
+                switch (idx) {
+                    case 0:
+                        return Integer.class;
+                    case 4:
+                        return Integer.class;
+                    case 5:
+                        return Double.class;
+                    case 6:
+                        return Boolean.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        jTable1.setModel(model);
+    }
+
+    public void loadInventoryTable() {
+        String sql = "SELECT p.`Part ID`, p.`Part Name`, p.`Model`, "
+                + "c.`Type` AS TypeName, p.`Stock`, p.`Price`, p.`Restock?` "
+                + "FROM partlist p JOIN componenttype c ON p.`Type` = c.`ID`";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("Part ID"),
+                    rs.getString("Part Name"),
+                    rs.getString("Model"),
+                    rs.getString("TypeName"),
+                    rs.getInt("Stock"),
+                    rs.getDouble("Price"),
+                    rs.getBoolean("Restock?")
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addStockToSelectedPart() {
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a part to add stock.");
+            return;
+        }
+        String text = TFAddStock.getText();
+        if (text.equals(PLACEHOLDER) || text.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Enter stock quantity first.");
+            return;
+        }
+        int partId = (int) jTable1.getValueAt(selectedRow, 0);
+        try {
+            int addQty = Integer.parseInt(text);
+            String sql = "UPDATE partlist SET `Stock` = `Stock` + ? WHERE `Part ID` = ?";
+            try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, addQty);
+                stmt.setInt(2, partId);
+                stmt.executeUpdate();
+            }
+            loadInventoryTable();
+            TFAddStock.setText(PLACEHOLDER);
+            TFAddStock.setForeground(java.awt.Color.GRAY);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid number.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void removeSelectedPart() {
+        int row = jTable1.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a part to remove.");
+            return;
+        }
+
+        // Confirm deletion
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to remove the selected part?",
+                "Confirm Remove",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        int partId = (int) jTable1.getValueAt(row, 0);
+        String sql = "DELETE FROM partlist WHERE `Part ID` = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, partId);
+            int deleted = ps.executeUpdate();
+            if (deleted > 0) {
+                JOptionPane.showMessageDialog(this, "Part removed successfully.");
+                loadInventoryTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "No part was removed. It may have already been deleted.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error removing part: " + ex.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -39,11 +198,12 @@ public class Inventory extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        BTAddStock = new javax.swing.JButton();
         BTAddItem = new javax.swing.JButton();
         BTRemoveItem = new javax.swing.JButton();
+        TFAddStock = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Shop Inventory");
 
         jPanel2.setBackground(new java.awt.Color(88, 105, 163));
 
@@ -57,6 +217,7 @@ public class Inventory extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -103,16 +264,6 @@ public class Inventory extends javax.swing.JFrame {
                 .addGap(8, 8, 8))
         );
 
-        BTAddStock.setBackground(new java.awt.Color(40, 53, 98));
-        BTAddStock.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BTAddStock.setForeground(new java.awt.Color(255, 255, 255));
-        BTAddStock.setText("Add Stock");
-        BTAddStock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTAddStockActionPerformed(evt);
-            }
-        });
-
         BTAddItem.setBackground(new java.awt.Color(40, 53, 98));
         BTAddItem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BTAddItem.setForeground(new java.awt.Color(255, 255, 255));
@@ -133,6 +284,9 @@ public class Inventory extends javax.swing.JFrame {
             }
         });
 
+        TFAddStock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        TFAddStock.setText("Add Stock");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -152,7 +306,7 @@ public class Inventory extends javax.swing.JFrame {
                         .addComponent(BTAddItem)
                         .addGap(18, 18, 18)
                         .addComponent(BTRemoveItem))
-                    .addComponent(BTAddStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(TFAddStock))
                 .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,8 +319,8 @@ public class Inventory extends javax.swing.JFrame {
                             .addComponent(BTBack)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(BTAddStock)
+                        .addGap(13, 13, 13)
+                        .addComponent(TFAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BTAddItem)
@@ -203,16 +357,11 @@ public class Inventory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BTAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAddStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BTAddStockActionPerformed
-
     private void BTAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAddItemActionPerformed
-        addItemform.setVisible(true);
+        new Newnew(this).setVisible(true);
     }//GEN-LAST:event_BTAddItemActionPerformed
 
     private void BTRemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTRemoveItemActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_BTRemoveItemActionPerformed
 
     private void BTBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTBackActionPerformed
@@ -258,9 +407,9 @@ public class Inventory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTAddItem;
-    private javax.swing.JButton BTAddStock;
     private javax.swing.JButton BTBack;
     private javax.swing.JButton BTRemoveItem;
+    private javax.swing.JTextField TFAddStock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

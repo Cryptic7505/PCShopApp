@@ -28,6 +28,7 @@ public class BuildList extends javax.swing.JFrame {
     private List<Map<String, Object>> partsData;
     public BuildList() {
         initComponents();
+        setLocationRelativeTo(null);
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
     }
@@ -98,6 +99,7 @@ public class BuildList extends javax.swing.JFrame {
         BTReturn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Build Summary");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(45, 48, 85));

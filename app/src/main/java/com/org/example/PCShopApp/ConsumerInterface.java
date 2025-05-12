@@ -34,6 +34,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
         initComponents();
+        setLocationRelativeTo(null);
         initializeComponentConfigs();
         populateComboBoxes();
         setupFormFields();
@@ -311,7 +312,7 @@ public class ConsumerInterface extends javax.swing.JFrame {
         TPOptions.setBackground(new java.awt.Color(40, 53, 98));
         TPOptions.setPreferredSize(new java.awt.Dimension(1263, 827));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(26, 43, 59));
         jPanel2.setFocusable(false);
         jPanel2.setMaximumSize(new java.awt.Dimension(1263, 767));
         jPanel2.setName(""); // NOI18N

@@ -4,22 +4,80 @@
  */
 package com.org.example.PCShopApp;
 
+import javax.swing.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.sql.*;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
 /**
  *
- * @author user
+ * @author Catmosphere, Cryptic
  */
 public class Newnew extends javax.swing.JFrame {
+    private final Inventory parentInventory;
 
-    /**
-     * Creates new form Newnew
-     */
     public Newnew() {
+        this(null);
+    }
+    public Newnew(Inventory parentInventory) {
+        this.parentInventory = parentInventory;
+
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
         initComponents();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        populateTypeCombo();
+        setupPlaceholders();
+    }
+
+    private void populateTypeCombo() {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(
+                "SELECT `ID`, `Type` FROM componenttype")) {
+            ResultSet rs = ps.executeQuery();
+            CBType.removeAllItems();
+            CBType.addItem("Select Type");
+            while (rs.next()) {
+                CBType.addItem(rs.getInt("ID") + " - " + rs.getString("Type"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setupPlaceholders() {
+        setupPlaceholder(TFName, "Name");
+        setupPlaceholder(TFModel, "Model");
+        setupPlaceholder(TFPrice, "Price");
+    }
+
+    private void setupPlaceholder(JTextField field, String placeholder) {
+        field.setText(placeholder);
+        field.setForeground(java.awt.Color.GRAY);
+        field.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(java.awt.Color.WHITE);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setText(placeholder);
+                    field.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
     }
 
     /**
@@ -33,13 +91,14 @@ public class Newnew extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         BTReset = new javax.swing.JButton();
-        BTAddItem = new javax.swing.JButton();
         CBType = new javax.swing.JComboBox<>();
         TFName = new javax.swing.JTextField();
         TFModel = new javax.swing.JTextField();
         TFPrice = new javax.swing.JTextField();
+        BTAddItem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("New Part");
 
         jPanel1.setBackground(new java.awt.Color(88, 105, 163));
 
@@ -51,10 +110,6 @@ public class Newnew extends javax.swing.JFrame {
                 BTResetActionPerformed(evt);
             }
         });
-
-        BTAddItem.setBackground(new java.awt.Color(66, 78, 122));
-        BTAddItem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        BTAddItem.setText("Add Item");
 
         CBType.setBackground(new java.awt.Color(42, 50, 79));
         CBType.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -69,32 +124,44 @@ public class Newnew extends javax.swing.JFrame {
         TFName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TFName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFName.setText("Name");
+        TFName.setAutoscrolls(false);
 
         TFModel.setBackground(new java.awt.Color(66, 78, 122));
         TFModel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TFModel.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFModel.setText("Model");
+        TFModel.setAutoscrolls(false);
 
         TFPrice.setBackground(new java.awt.Color(66, 78, 122));
         TFPrice.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TFPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TFPrice.setText("Price");
+        TFPrice.setAutoscrolls(false);
+
+        BTAddItem.setBackground(new java.awt.Color(35, 41, 66));
+        BTAddItem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BTAddItem.setText("Add Item");
+        BTAddItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTAddItemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(BTReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TFModel)
+                    .addComponent(TFPrice)
                     .addComponent(TFName)
-                    .addComponent(CBType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BTReset, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addComponent(TFModel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addComponent(TFPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(BTAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                    .addComponent(CBType, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addComponent(BTAddItem, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,12 +172,12 @@ public class Newnew extends javax.swing.JFrame {
                 .addComponent(TFModel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(CBType, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BTAddItem, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(BTReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BTReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
         );
 
@@ -127,14 +194,60 @@ public class Newnew extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void BTResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTResetActionPerformed
-        // TODO add your handling code here:
+        TFName.setText("Name");
+        TFName.setForeground(java.awt.Color.GRAY);
+        TFModel.setText("Model");
+        TFModel.setForeground(java.awt.Color.GRAY);
+        TFPrice.setText("Price");
+        TFPrice.setForeground(java.awt.Color.GRAY);
+        CBType.setSelectedIndex(0);
     }//GEN-LAST:event_BTResetActionPerformed
 
     private void CBTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CBTypeActionPerformed
+
+    private void BTAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTAddItemActionPerformed
+        String name = TFName.getText();
+        String model = TFModel.getText();
+        String priceText = TFPrice.getText();
+        String typeSelection = (String) CBType.getSelectedItem();
+
+        if (name.isEmpty() || name.equals("Name")
+                || model.isEmpty() || model.equals("Model")
+                || priceText.isEmpty() || priceText.equals("Price")
+                || typeSelection == null || typeSelection.startsWith("Select")) {
+            JOptionPane.showMessageDialog(this, "Please fill out all fields.");
+            return;
+        }
+        try {
+            double price = Double.parseDouble(priceText);
+            int typeId = Integer.parseInt(typeSelection.split(" - ")[0]);
+            String sql = "INSERT INTO partlist (`Part Name`,`Model`,`Type`,`Stock`,`Price`,`Restock?`) VALUES (?,?,?,?,?,?)";
+            try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, name);
+                ps.setString(2, model);
+                ps.setInt(3, typeId);
+                ps.setInt(4, 0);
+                ps.setDouble(5, price);
+                ps.setBoolean(6, false);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Item added successfully.");
+                // Refresh parent inventory table
+                if (parentInventory != null) {
+                    parentInventory.loadInventoryTable();
+                }
+                dispose();
+            }
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(this, "Enter a valid price.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BTAddItemActionPerformed
 
     /**
      * @param args the command line arguments
