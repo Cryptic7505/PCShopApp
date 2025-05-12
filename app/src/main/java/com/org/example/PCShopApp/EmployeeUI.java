@@ -4,12 +4,12 @@
  */
 package com.org.example.PCShopApp;
 import javax.swing.*;
-
+import java.sql.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 /**
  *
- * @author user
+ * @author Catmosphere, Cryptic
  */
 public class EmployeeUI extends javax.swing.JFrame {
     
@@ -21,6 +21,8 @@ public class EmployeeUI extends javax.swing.JFrame {
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
         initComponents();
+        setLocationRelativeTo(null);
+        EPassWord.setEchoChar('*');
     }
 
     /**
@@ -41,6 +43,7 @@ public class EmployeeUI extends javax.swing.JFrame {
         EShowP = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel1.setBackground(new java.awt.Color(40, 53, 98));
@@ -153,36 +156,46 @@ public class EmployeeUI extends javax.swing.JFrame {
     }//GEN-LAST:event_EUserNameActionPerformed
 
     private void ELogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ELogin1ActionPerformed
-        // TODO add your handling code here:
-        if(EUserName.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out username");
+        String username = EUserName.getText().trim();
+        String password = new String(EPassWord.getPassword()).trim();
+
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter username.");
+            return;
         }
-        else if(EPassWord.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill out password");
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter password.");
+            return;
         }
-        else if(EUserName.getText().contains("Admin")&& EPassWord.getText().contains("Admin123")){
-            JOptionPane.showMessageDialog(null, "Login successful");
-            DataToAccess option = new DataToAccess();
-            this.dispose();
-            option.setVisible(true);
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Wrong Username or Password","Message", JOptionPane.ERROR_MESSAGE);
+
+        String sql = "SELECT * FROM employees WHERE first_name = ? AND password = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Login success
+                DataToAccess dashboard = new DataToAccess();
+                dashboard.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Wrong Username or Password", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ELogin1ActionPerformed
 
     private void EShowPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EShowPActionPerformed
-        // TODO add your handling code here:
-        if(EShowP.isSelected()){
-            EPassWord.setEchoChar((char)0);
-        }
-        else{
+        if (EShowP.isSelected()) {
+            EPassWord.setEchoChar((char) 0);
+        } else {
             EPassWord.setEchoChar('*');
         }
     }//GEN-LAST:event_EShowPActionPerformed
 
     private void EExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EExitActionPerformed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_EExitActionPerformed
 

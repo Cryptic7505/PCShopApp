@@ -9,7 +9,7 @@ import com.formdev.flatlaf.FlatLaf;
 
 /**
  *
- * @author user
+ * @author Catmosphere, Cryptic
  */
 public class DataToAccess extends javax.swing.JFrame {
 
@@ -19,6 +19,7 @@ public class DataToAccess extends javax.swing.JFrame {
     public DataToAccess() {
         FlatLaf.registerCustomDefaultsSource("com.org.example.PCShopApp");
         FlatDarkLaf.setup();
+        setLocationRelativeTo(null);
         initComponents();
     }
 
@@ -39,6 +40,7 @@ public class DataToAccess extends javax.swing.JFrame {
         BTLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Option");
 
         jPanel1.setBackground(new java.awt.Color(40, 53, 98));
 
